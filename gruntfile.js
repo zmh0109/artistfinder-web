@@ -16,7 +16,8 @@ module.exports = function(grunt) {
           'public/js/script.js': ['js/script.js'],
           'public/js/controllers.js': ['js/controllers.js'],
           'public/js/app.js': ['js/app.js'],
-          'public/js/services.js': ['js/services.js']
+          'public/js/services.js': ['js/services.js'],
+			 'public/js/materialize.js': ['js/materialize.js']
         } //files
       } //my_target
     }, //uglify
@@ -35,12 +36,7 @@ module.exports = function(grunt) {
         options: {
           config: 'compass_config.rb'
         } //options
-      }, //dev
-      foundation: {
-        options: {
-          config: 'compass_foundation_config.rb'
-        } //options
-      } //foundation
+      }
 
     }, //compass
     watch: {
@@ -52,12 +48,8 @@ module.exports = function(grunt) {
       }, //script
       sass: {
         files: ['sass/*.scss'],
-        tasks: ['compass:dev','compass:foundation']
-      }, //sass
-      sass_foundation: {
-        files: ['public/foundation/scss/foundation.scss','public/foundation/scss/foundation/*.scss','public/foundation/scss/foundation/components/*.scss'],
-        tasks: ['compass:foundation']
-      }, //sass_foundation
+        tasks: ['compass:dev']
+      },
       html: {
         files: ['public/*.html', 'public/partials/*.html']
       }
