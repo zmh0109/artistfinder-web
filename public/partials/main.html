@@ -30,20 +30,19 @@
 	</div>
 	<div class="divider"></div>
 	<br>
+
+	<div class="row">
+		<section ng-repeat="(index, value) in top8">
+				<a ng:show="index < 4" class="col s3" href="#/artists/{{value._id}}"><img class="responsive-img" ng-src="{{value.image}}"></a>
+		</section>	
+	</div>
+
+	<div class="row">
+		<section ng-repeat="(index, value) in top8">
+				<a ng:show="index >= 4" class="col s3" href="#/artists/{{value._id}}"><img class="responsive-img" ng-src="{{value.image}}"></a>
+		</section>	
+	</div>
 	
-	<div class="row">
-		<a class="col s3" href="#/artists/artistId"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></a>
-		<a class="col s3" href="#/artists/artistId"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></a>
-		<a class="col s3" href="#/artists/artistId"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></a>
-		<a class="col s3" href="#/artists/artistId"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></a>
-					
-	</div>
-	<div class="row">
-		<a class="col s3" href="#/artists/artistId"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></a>
-		<a class="col s3" href="#/artists/artistId"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></a>
-		<a class="col s3" href="#/artists/artistId"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></a>
-		<a class="col s3" href="#/artists/artistId"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></a>
-	</div>
 	
 	<div class="section">
 		<h5>Recently Added</h5>
@@ -52,32 +51,37 @@
 	<div class="divider"></div>
 	<br>
 
-	<div class="row valign-wrapper">
-		<div class="col s1"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></div>
-		<div class="col s3"><a href="#/artists/artistId">Artist name</a></div>
-		<div class="col s1"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></div>
-		<div class="col s3"><a href="#/artists/artistId">Artist name</a></div>
-		<div class="col s1"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></div>
-		<div class="col s3"><a href="#/artists/artistId">Artist name</a></div>
+	<div class="row">
+		<section ng-repeat="(index, value) in recent9">
+				<a ng:show="index < 3" class="col s1" href="#/artists/{{value._id}}"><img class="responsive-img" ng-src="{{value.image}}"></a>
+				<a ng:show="index < 3" class="col s3" href="#/artists/{{value._id}}">{{value.name}}</a>
+		</section>	
 	</div>
+
+	<div class="row">
+		<section ng-repeat="(index, value) in recent9">
+				<a ng:show="index >= 3 && index < 6" class="col s1" href="#/artists/{{value._id}}"><img class="responsive-img" ng-src="{{value.image}}"></a>
+				<a ng:show="index >= 3 && index < 6" class="col s3" href="#/artists/{{value._id}}">{{value.name}}</a>
+		</section>	
+	</div>
+
+	<div class="row">
+		<section ng-repeat="(index, value) in recent9">
+				<a ng:show="index >= 6" class="col s1" href="#/artists/{{value._id}}"><img class="responsive-img" ng-src="{{value.image}}"></a>
+				<a ng:show="index >= 6" class="col s3" href="#/artists/{{value._id}}">{{value.name}}</a>
+		</section>	
+	</div>
+
+<!-- 	<div class="row valign-wrapper">
+		<div class="col s1"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></div>
+		<div class="col s3"><a href="#/artists/artistId">Artist name</a></div>
+		<div class="col s1"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></div>
+		<div class="col s3"><a href="#/artists/artistId">Artist name</a></div>
+		<div class="col s1"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></div>
+		<div class="col s3"><a href="#/artists/artistId">Artist name</a></div>
+	</div> -->
 	
-	<div class="row valign-wrapper">
-		<div class="col s1"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></div>
-		<div class="col s3"><a href="#/artists/artistId">Artist name</a></div>
-		<div class="col s1"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></div>
-		<div class="col s3"><a href="#/artists/artistId">Artist name</a></div>
-		<div class="col s1"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></div>
-		<div class="col s3"><a href="#/artists/artistId">Artist name</a></div>
-	</div>
 	
-	<div class="row valign-wrapper">
-		<div class="col s1"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></div>
-		<div class="col s3"><a href="#/artists/artistId">Artist name</a></div>
-		<div class="col s1"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></div>
-		<div class="col s3"><a href="#/artists/artistId">Artist name</a></div>
-		<div class="col s1"><img class="responsive-img" src="http://placehold.it/200&text=artist+image"></div>
-		<div class="col s3"><a href="#/artists/artistId">Artist name</a></div>
-	</div>
 	
 	
 </section>

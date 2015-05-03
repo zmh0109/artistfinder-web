@@ -1,12 +1,24 @@
 var demoControllers = angular.module('demoControllers', []);
 
-demoControllers.controller('MainController', ['$scope', 'CommonData'  , function($scope, CommonData) {
-$scope.data = "";
-   
+demoControllers.controller('MainController', ['$scope', 'Artists'  , function($scope, Artists) {
+	$scope.top8 = {};
+	$scope.recent9 = Array();
+   	Artists.getTopN(8, function(data){
+   		$scope.top8 = data.data;
+   	});
+   	Artists.getRecentlyAddedN(9, function(data){
+   		for (var i = 0; i < data.data.length; i++) {
+   			console.log("id: " + data.data[i].modelId);
+   			Artists.getById(data.data[i].modelId, function(artist) {
+   				$scope.recent9.push(artist.data[0]);
+   			});
+   		}
+
+   	});
+
 	$(document).ready(function (){
 		initNavbar();
 	});
-	
 }]);
 
 demoControllers.controller('ArtistController', ['$scope', 'CommonData' , function($scope, CommonData) {
