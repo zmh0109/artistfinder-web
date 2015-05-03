@@ -1,46 +1,69 @@
 var demoControllers = angular.module('demoControllers', []);
 
-demoControllers.controller('FirstController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+demoControllers.controller('MainController', ['$scope', 'CommonData'  , function($scope, CommonData) {
+$scope.data = "";
+   
+	$(document).ready(function (){
+		initNavbar();
+	});
+	
+}]);
+
+demoControllers.controller('ArtistController', ['$scope', 'CommonData' , function($scope, CommonData) {
   $scope.data = "";
-   $scope.displayText = ""
-
-  $scope.setData = function(){
-    CommonData.setData($scope.data);
-    $scope.displayText = "Data set"
-
-  };
+	
+	$(document).ready(function (){
+		initNavbar();
+	});
 
 }]);
 
-demoControllers.controller('SecondController', ['$scope', 'CommonData' , function($scope, CommonData) {
+demoControllers.controller('SigninController', ['$scope', 'CommonData' , function($scope, CommonData) {
   $scope.data = "";
-
-  $scope.getData = function(){
-    $scope.data = CommonData.getData();
-
-  };
+	
+	$(document).ready(function (){
+		$('footer').css('display', 'none');
+	});
 
 }]);
 
+demoControllers.controller('SignupController', ['$scope', 'CommonData' , function($scope, CommonData) {
+  $scope.data = "";
+	
+	$(document).ready(function (){
+		$('footer').css('display', 'none');
+	});
 
-demoControllers.controller('LlamaListController', ['$scope', '$http', 'Llamas', '$window' , function($scope, $http,  Llamas, $window) {
+}]);
 
-  Llamas.get().success(function(data){
-    $scope.llamas = data;
-  });
+demoControllers.controller('MainLoggedController', ['$scope', '$http', 'Llamas', '$window' , function($scope, $http,  Llamas, $window) {
 
+  $(document).ready(function (){
+		initNavbar();
+	});
 
 }]);
 
 demoControllers.controller('SettingsController', ['$scope' , '$window' , function($scope, $window) {
-  $scope.url = $window.sessionStorage.baseurl;
-
-  $scope.setUrl = function(){
-    $window.sessionStorage.baseurl = $scope.url; 
-    $scope.displayText = "URL set";
-
-  };
+		
+	$(document).ready(function (){
+		initNavbar();
+	});
 
 }]);
 
 
+function initNavbar() {
+	$('footer').css('display', 'inline');
+	$(".dropdown-button").dropdown();
+	$("#search-form").css('display', 'none');
+	$("#search-trigger").on('click', function () {
+		$("#navbar").css('display', 'none');
+		$("#search-form").css('display', 'inline');
+		$("#search").focus();
+	});
+	$("#search-form").on('focusout', function () {
+		$("#navbar").css('display', 'inline');
+		$("#search-form").css('display', 'none');
+	});
+}
