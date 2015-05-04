@@ -20,6 +20,40 @@ angular.module('demoServices', [])
                     callback(data);
                 });
             },
+            getArtistById: function(id, callback){
+                var baseUrl = "http://localhost:4000";
+                $http.get(baseUrl+'/api/artists/' + id).success(function(data){
+                    callback(data);
+                });
+            }
+        }
+    })
+    .factory('Users', function($http, $window){
+        return{
+            // getUsers: function(callback){
+            //     var baseUrl = "http://localhost:4000";
+            //     $http.get(baseUrl+'api/users/').success(function(data){
+            //         callback(data);
+            //     });
+            // },
+            getUserById: function(userID, callback){
+                var baseUrl = "http://localhost:4000";
+                $http.get(baseUrl+'/api/users/' + userID).success(function(data){
+                    callback(data);
+                });
+            },
+            updateUser: function(data, callback){
+                var baseUrl = "http://localhost:4000";
+                $http.put(baseUrl+'/api/users/' + data._id, $.param(data)).success(function(){
+                    callback();
+                });
+            },
+            deleteUser: function(userID, callback){
+                var baseUrl = "http://localhost:4000";
+                $http.delete(baseUrl+'/api/users/'+userID).success(function(){
+                    callback();
+                });
+            }
         }
     })
     .factory('CommonData', function(){

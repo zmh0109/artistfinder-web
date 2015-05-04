@@ -8,26 +8,46 @@ demoControllers.controller('MainController', ['$scope', 'Artists'  , function($s
    	});
    	Artists.getRecentlyAddedN(9, function(data){
    		for (var i = 0; i < data.data.length; i++) {
-   			console.log("id: " + data.data[i].modelId);
+   			// console.log("id: " + data.data[i].modelId);
    			Artists.getById(data.data[i].modelId, function(artist) {
    				$scope.recent9.push(artist.data[0]);
    			});
    		}
-
    	});
+	$(document).ready(function (){
+		initNavbar();
+	});
+}]);
+
+demoControllers.controller('SettingsController', ['$scope', '$routeParams', 'Users', '$window' , function($scope, $routeParams, Users, $window) {
+	$scope.user = "";
+	$scope.userID = $routeParams.id;
+	Users.getUserById($scope.userID, function(data){
+		$scope.user = data.data;
+	})
+	$scope.update_user = function(){
+		Users.updateUser($scope.user, function(){});
+	}
+
+	$scope.delete_user = function(){
+		Users.deleteUser($scope.userID, function(){});
+	}	
 
 	$(document).ready(function (){
 		initNavbar();
 	});
 }]);
 
-demoControllers.controller('ArtistController', ['$scope', 'CommonData' , function($scope, CommonData) {
-  $scope.data = "";
-	
+demoControllers.controller('ArtistController', ['$scope', '$routeParams', 'Artists', function($scope, $routeParams, Artists) {
+	$scope.artist = "";
+	$scope.ID = $routeParams.id;
+	Artists.getArtistById($scope.ID, function(data){
+		$scope.artist = data.data;
+	});
+
 	$(document).ready(function (){
 		initNavbar();
 	});
-
 }]);
 
 demoControllers.controller('SigninController', ['$scope', 'CommonData' , function($scope, CommonData) {
@@ -56,13 +76,7 @@ demoControllers.controller('MainLoggedController', ['$scope', '$http', 'Llamas',
 
 }]);
 
-demoControllers.controller('SettingsController', ['$scope' , '$window' , function($scope, $window) {
-		
-	$(document).ready(function (){
-		initNavbar();
-	});
 
-}]);
 
 
 function initNavbar() {
