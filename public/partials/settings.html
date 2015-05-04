@@ -1,27 +1,45 @@
 <section class="container">
-    <form>
-        <div class="row">
-            <div class="input-field col s6 offset-s3">
-                <input ng-model="user.name" id="name" type="text" class="validate" required>
-                <label for="name" class="active">Name</label>
+    <div class="section">
+        <h5>Welcome back, {{user.name}}!</h5>
+        <p>Update your info and see how you contributed to Artist Finder</p>
+    </div>
+    <div class="divider"></div>
+    <br>
+    <div class="row">
+        <form class="col s6">
+            <h5>
+                <i class="mdi-action-settings"></i>Settings</h5>
+            <br>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input ng-model="user.name" id="name" type="text" class="validate" required>
+                    <label for="name" class="active">Name</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6 offset-s3">
-                <input ng-model="user.email" id="email" type="email" class="validate" required>
-                <label for="email" class="active">Email</label>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input ng-model="user.email" id="email" type="email" class="validate" required>
+                    <label for="email" class="active">Email</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s6 offset-s3">
-                <input ng-model="user.password" id="password" type="password" class="validate" required>
-                <label for="password" class="active">Password</label>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input ng-model="user.password" id="password" type="password" class="validate" required>
+                    <label for="password" class="active">Password</label>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <button ng-click="update_user()" class="col s4 offset-s4 btn waves-effect waves-light">Update</button>
-        </div>
-        <div class="row">
-            <button ng-click="delete_user()" class="col s4 offset-s4 btn waves-effect waves-light red darken-2">Delete account</button>
-        </div>
-    </form>{{user.signupDate}}</section>
+            <div class="row">
+                <button ng-click="update_user()" class="col s8 offset-s2 btn waves-effect waves-light">Update</button>
+            </div>
+            <div class="row">
+                <button ng-click="delete_user()" class="col s8 offset-s2 btn waves-effect waves-light red darken-2">Delete account</button>
+            </div>
+        </form>
+        <div class="col s6">
+            <h5><i class="mdi-editor-insert-chart"></i>Your stats</h5>
+            <br>
+                You joined Artist Finder on
+            <br>{{user.signupDate}}</div>
+    </div>
+    {{user}}
+</section>
