@@ -1,65 +1,27 @@
-<ul id="user-dropdown" class="dropdown-content">
-  <li><a href="#/home">Logout</a></li>
-  <li><a href="#/user/settings/user:id">Settings</a></li>
-</ul>
-<ul id="user-dropleft" class="dropleft-content">
-    <li><a href="#/home">Logout</a></li>
-    <li><a href="#/user/settings/user:id">Settings</a></li>
-</ul>
-<div class="navbar-fixed">
-    <div class="navbar-fixed">
-        <nav>
-            <div class="nav-wrapper">
-                <form id="search-form">
-                    <div class="input-field">
-                        <input id="search" type="search" required autofocus="autofocus">
-                        <label for="search"><i class="mdi-action-search"></i></label>
-                        <i class="mdi-navigation-close"></i>
-                    </div>
-                </form>
-                <div id="nav-wrapper">
-                    <a href="#/home" class="brand-logo"><img src="./data/images/logo.png" alt="ArtistFinder logo"></a>
-                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-                    <ul id="nav-mobile" class="right hide-on-med-and-down">
-                        <li><a href="" id="search-trigger"><i class="mdi-action-search"></i></a></li>
-                        <li><a class="dropdown-button" href="#!" data-activates="user-dropdown">username<i class="mdi-action-account-circle right"></i></a></li>
-                    </ul>
-                    <ul class="side-nav" id="mobile-demo" >
-                        <li><a href="" id="search-trigger_mobile"><i class="mdi-action-search"></i></a></li>
-                        <li><a class="dropdown-button" href="#!" data-activates="user-dropleft">username<i class="mdi-action-account-circle right"></i></a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </div>
-
 <section class="container">
-	<form>
-	  <div class="row">
-      <div class="small-12 columns">
-        <input ng-model="url" type="text" placeholder="URL">
-      </div>
-    </div>
-
-    <div class="text-center">
-      <button ng-click="setUrl()" class="waves-effect indigo btn">Set URL</button>
-    </div>
-  </form>
-</section>
-
-<input ng-model="user.name" type="text">
-<br>
-<input ng-model="user.email" type="text">
-<br>
-<input ng-model="user.password" type="text">
-<br>
-{{user.signupDate}}
-<br>
-
-<div class="text-center">
-  <button ng-click="update_user()" class="waves-effect indigo btn">Save</button>
-</div>
-
-<div class="text-center">
-  <button ng-click="delete_user()" class="waves-effect indigo btn">Delete</button>
-</div>
+    <form>
+        <div class="row">
+            <div class="input-field col s6 offset-s3">
+                <input ng-model="user.name" id="name" type="text" class="validate" required>
+                <label for="name" class="active">Name</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6 offset-s3">
+                <input ng-model="user.email" id="email" type="email" class="validate" required>
+                <label for="email" class="active">Email</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6 offset-s3">
+                <input ng-model="user.password" id="password" type="password" class="validate" required>
+                <label for="password" class="active">Password</label>
+            </div>
+        </div>
+        <div class="row">
+            <button ng-click="update_user()" class="col s4 offset-s4 btn waves-effect waves-light">Update</button>
+        </div>
+        <div class="row">
+            <button ng-click="delete_user()" class="col s4 offset-s4 btn waves-effect waves-light red darken-2">Delete account</button>
+        </div>
+    </form>{{user.signupDate}}</section>
