@@ -10,7 +10,7 @@ angular.module('demoServices', [])
             },
             getRecentlyAddedN: function(n, callback){
                 var baseUrl = "http://localhost:4000";
-                $http.get(baseUrl+'/api/changelogs?sort={\"date\":-1}&where={\"operation\": \"post\", \"model\": \"artist\"}&limit='+n.toString()).success(function(data){
+                $http.get(baseUrl+'/api/changelogs?sort={\"date\":1}&where={\"operation\": \"post\", \"model\": \"artist\"}&limit='+n.toString()).success(function(data){
                     callback(data);
                 });
             },

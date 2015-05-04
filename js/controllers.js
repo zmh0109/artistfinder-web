@@ -9,8 +9,8 @@ demoControllers.controller('MainController', ['$scope', 'Artists'  , function($s
    	Artists.getRecentlyAddedN(9, function(data){
    		for (var i = 0; i < data.data.length; i++) {
    			// console.log("id: " + data.data[i].modelId);
-   			Artists.getById(data.data[i].modelId, function(artist) {
-   				$scope.recent9.push(artist.data[0]);
+   			Artists.getArtistById(data.data[i].modelId, function(artist) {
+   				$scope.recent9.push(artist.data);
    			});
    		}
    	});
