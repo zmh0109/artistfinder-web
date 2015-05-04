@@ -26,16 +26,30 @@
 <section class="container">
 	<form>
 	  <div class="row">
-          <div class="small-12 columns">
-            <input ng-model="url" type="text" placeholder="URL">
-          </div>
+      <div class="small-12 columns">
+        <input ng-model="url" type="text" placeholder="URL">
       </div>
+    </div>
 
     <div class="text-center">
       <button ng-click="setUrl()" class="waves-effect indigo btn">Set URL</button>
     </div>
-
-    {{displayText}}
-
   </form>
 </section>
+
+<input ng-model="user.name" type="text">
+<br>
+<input ng-model="user.email" type="text">
+<br>
+<input ng-model="user.password" type="text">
+<br>
+{{user.signupDate}}
+<br>
+
+<div class="text-center">
+  <button ng-click="update_user()" class="waves-effect indigo btn">Save</button>
+</div>
+
+<div class="text-center">
+  <button ng-click="delete_user()" class="waves-effect indigo btn">Delete</button>
+</div>
