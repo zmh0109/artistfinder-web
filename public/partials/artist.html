@@ -1,27 +1,37 @@
 <ul id="user-dropdown" class="dropdown-content">
-  <li><a href="#/home">Logout</a></li>
-  <li><a href="#/user/settings/user:id">Settings</a></li>
+    <li><a href="#/home">Logout</a></li>
+    <li><a href="#/user/settings/user:id">Settings</a></li>
+</ul>
+<ul id="user-dropleft" class="dropleft-content">
+    <li><a href="#/home">Logout</a></li>
+    <li><a href="#/user/settings/user:id">Settings</a></li>
 </ul>
 <div class="navbar-fixed">
-<nav>
-	<div class="nav-wrapper">
-		<form id="search-form">
-        <div class="input-field">
-          <input id="search" type="search" required autofocus="autofocus">
-          <label for="search"><i class="mdi-action-search"></i></label>
-          <i class="mdi-navigation-close"></i>
-        </div>
-      </form>
-		<div id="navbar">
-			<a href="#/home" class="brand-logo"><img src="./data/images/logo.png" alt="ArtistFinder logo"></a>
-			<ul id="nav-mobile" class="right hide-on-med-and-down">
-				<li><a href="" id="search-trigger"><i class="mdi-action-search"></i></a></li>
-				<li><a class="dropdown-button" href="#!" data-activates="user-dropdown">username<i class="mdi-action-account-circle right"></i></a></li>
-			</ul>
-		</div>
-	</div>	
-</nav>
-</div>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper">
+                <form id="search-form">
+                    <div class="input-field">
+                        <input id="search" type="search" required autofocus="autofocus">
+                        <label for="search"><i class="mdi-action-search"></i></label>
+                        <i class="mdi-navigation-close"></i>
+                    </div>
+                </form>
+                <div id="nav-wrapper">
+                    <a href="#/home" class="brand-logo"><img src="./data/images/logo.png" alt="ArtistFinder logo"></a>
+                    <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down">
+                        <li><a href="" id="search-trigger"><i class="mdi-action-search"></i></a></li>
+                        <li><a class="dropdown-button" href="#!" data-activates="user-dropdown">username<i class="mdi-action-account-circle right"></i></a></li>
+                    </ul>
+                    <ul class="side-nav" id="mobile-demo" >
+                        <li><a href="" id="search-trigger_mobile"><i class="mdi-action-search"></i></a></li>
+                        <li><a class="dropdown-button" href="#!" data-activates="user-dropleft">username<i class="mdi-action-account-circle right"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
 
 <section class="container">
 
