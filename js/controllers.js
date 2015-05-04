@@ -1,16 +1,15 @@
 var demoControllers = angular.module('demoControllers', []);
 
 demoControllers.controller('MainController', ['$scope', 'Artists'  , function($scope, Artists) {
-	$scope.top8 = {};
-	$scope.recent9 = Array();
-   	Artists.getTopN(8, function(data){
-   		$scope.top8 = data.data;
+	$scope.top = {};
+	$scope.recent = Array();
+   	Artists.getTopN(9, function(data){
+   		$scope.top = data.data;
    	});
    	Artists.getRecentlyAddedN(9, function(data){
    		for (var i = 0; i < data.data.length; i++) {
-   			// console.log("id: " + data.data[i].modelId);
    			Artists.getArtistById(data.data[i].modelId, function(artist) {
-   				$scope.recent9.push(artist.data);
+   				$scope.recent.push(artist.data);
    			});
    		}
    	});
@@ -91,5 +90,13 @@ function initNavbar() {
 	$("#search-form").on('focusout', function () {
 		$("#navbar").css('display', 'inline');
 		$("#search-form").css('display', 'none');
+	});
+	$("#search-trigger-mobile").on('click', function () {
+		$("#navbar").css('display', 'none');
+		$("#search-form").css('display', 'inline');
+		$("#search").focus();
+	});
+	$(".button-collapse").sideNav({
+		closeOnClick: true
 	});
 }
