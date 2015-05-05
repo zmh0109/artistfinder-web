@@ -22,6 +22,14 @@ main {
     overflow:hidden;
 }
 
+#artist-img {
+    width: 70%;
+    padding-bottom : 70%; /* = width for a 1:1 aspect ratio */
+    margin-top: 15px;
+    margin-bottom: 30px;
+    margin-left: 15%;
+}
+
 .square a {
 	cursor: pointer;
 	color: white;
@@ -63,4 +71,32 @@ main {
     vertical-align:bottom;
     height:100%;
     width:100%;
+}
+
+
+#side-nav {
+    padding: 0px;
+    
+    a {
+        width: 100%;
+        line-height: 3em;
+        padding-left: 15px;
+        font-size: 1.1em;
+        
+        i {
+            margin-right: 25px;
+            padding-top: 10px;
+            margin-left: 20px;
+        }
+    }
+    
+    a:hover {
+        background-color: white;
+        @extend .z-depth-1;
+    }
+}
+
+.disabled {
+    pointer-events: none;
+    cursor: default;
 }
