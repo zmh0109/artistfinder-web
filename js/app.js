@@ -8,9 +8,21 @@ demoApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $ht
 	 templateUrl: 'partials/main.html',
 	 controller: 'MainController'
 	}).
-	when('/artists/:id', {
+	when('/artists/info/:id', {
 	 templateUrl: 'partials/artist.html',
-	 controller: 'ArtistController'
+	 controller: 'ArtistInfoController'
+	}).
+	when('/artists/edit/:id', {
+	 templateUrl: 'partials/artistEdit.html',
+	 controller: 'ArtistEditController'
+	}).
+	when('/albums/info/:id', {
+	 templateUrl: 'partials/album.html',
+	 controller: 'AlbumInfoController'
+	}).
+	when('/albums/edit/:id', {
+	 templateUrl: 'partials/albumEdit.html',
+	 controller: 'AlbumEditController'
 	}).
 	when('/user/settings/:id', {
 	 templateUrl: 'partials/settings.html',
