@@ -37,11 +37,13 @@ demoControllers.controller('SettingsController', ['$scope', '$routeParams', 'Use
 	});
 }]);
 
-demoControllers.controller('ArtistInfoController', ['$scope', '$routeParams', 'Artists', function($scope, $routeParams, Artists) {
+demoControllers.controller('ArtistInfoController', ['$scope', '$routeParams', 'Artists', 'Albums', function($scope, $routeParams, Artists, Albums) {
 	$scope.artist = "";
 	$scope.members = Array();
+	$scope.albums = null;
 	$scope.ID = $routeParams.id;
-	Artists.getArtistById($scope.ID, function(data){
+	
+	Artists.getArtistById($scope.ID, function(data) {
 		$scope.artist = data.data;
 		
 		if(data.data.isBand) {
@@ -51,6 +53,11 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$routeParams', 'A
 	   			});
 			}
 		}
+		
+	});
+	
+	Albums.getByArtist($scope.ID, function(albums) {
+		$scope.albums = albums.data;
 	});
 
 	$(document).ready(function (){

@@ -56,22 +56,13 @@ angular.module('demoServices', [])
             }
         }
     })
-    .factory('CommonData', function(){
-        var data = "";
+    .factory('Albums', function($http, $window){
         return{
-            getData : function(){
-                return data;
-            },
-            setData : function(newData){
-                data = newData;                
-            }
-        }
-    })
-    .factory('Llamas', function($http, $window) {      
-        return {
-            get : function() {
-                var baseUrl = $window.sessionStorage.baseurl;
-                return $http.get(baseUrl+'/api/llamas');
+            getByArtist : function(artistId, callback){
+                var baseUrl = "http://localhost:4000";
+                $http.get(baseUrl+'/api/albums?where={\"artistId\":\"' + artistId + '\"}').success(function(data){
+                    callback(data);
+                });
             }
         }
     })
