@@ -16,6 +16,10 @@ demoApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $ht
 	 templateUrl: 'partials/artistEdit.html',
 	 controller: 'ArtistEditController'
 	}).
+	when('/artists/new', {
+	 templateUrl: 'partials/artistNew.html',
+	 controller: 'ArtistNewController'
+	}).
 	when('/albums/info/:id', {
 	 templateUrl: 'partials/album.html',
 	 controller: 'AlbumInfoController'
@@ -23,6 +27,10 @@ demoApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $ht
 	when('/albums/edit/:id', {
 	 templateUrl: 'partials/albumEdit.html',
 	 controller: 'AlbumEditController'
+	}).
+	when('/albums/new', {
+	 templateUrl: 'partials/albumNew.html',
+	 controller: 'AlbumNewController'
 	}).
 	when('/user/settings/:id', {
 	 templateUrl: 'partials/settings.html',

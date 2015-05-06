@@ -37,12 +37,78 @@ demoControllers.controller('SettingsController', ['$scope', '$routeParams', 'Use
 	});
 }]);
 
-demoControllers.controller('ArtistController', ['$scope', '$routeParams', 'Artists', function($scope, $routeParams, Artists) {
+demoControllers.controller('ArtistInfoController', ['$scope', '$routeParams', 'Artists', function($scope, $routeParams, Artists) {
 	$scope.artist = "";
+	$scope.members = Array();
 	$scope.ID = $routeParams.id;
 	Artists.getArtistById($scope.ID, function(data){
 		$scope.artist = data.data;
+		
+		if(data.data.isBand) {
+			for (var i = 0; i < data.data.members.length; i++) {
+				Artists.getArtistById(data.data.members[i], function(artist) {
+	   				$scope.members.push(artist.data);
+	   			});
+			}
+		}
 	});
+
+	$(document).ready(function (){
+		initNavbar();
+	});
+}]);
+
+demoControllers.controller('ArtistEditController', ['$scope', '$routeParams', 'Artists', function($scope, $routeParams, Artists) {
+	$scope.artist = "";
+	$scope.members = Array();
+	$scope.ID = $routeParams.id;
+	Artists.getArtistById($scope.ID, function(data){
+		$scope.artist = data.data;
+		
+		if(data.data.isBand) {
+			for (var i = 0; i < data.data.members.length; i++) {
+				Artists.getArtistById(data.data.members[i], function(artist) {
+	   				$scope.members.push(artist.data);
+	   			});
+			}
+		}
+	});
+
+	$(document).ready(function (){
+		initNavbar();
+	});
+}]);
+
+demoControllers.controller('ArtistNewController', ['$scope', 'Artists', function($scope, Artists) {
+	$scope.artist = null;
+
+	$(document).ready(function (){
+		initNavbar();
+	});
+}]);
+
+demoControllers.controller('AlbumInfoController', ['$scope', '$routeParams', 'Albums', 'Artists', function($scope, $routeParams, Albums, Artists) {
+	$scope.artist = "";
+	$scope.album = "";
+	$scope.ID = $routeParams.id;
+
+	$(document).ready(function (){
+		initNavbar();
+	});
+}]);
+
+demoControllers.controller('AlbumEditController', ['$scope', '$routeParams', 'Albums', 'Artists', function($scope, $routeParams, Albums, Artists) {
+	$scope.artist = "";
+	$scope.album = "";
+	$scope.ID = $routeParams.id;
+
+	$(document).ready(function (){
+		initNavbar();
+	});
+}]);
+
+demoControllers.controller('AlbumNewController', ['$scope', 'Albums', function($scope, Albums) {
+	$scope.album = null;
 
 	$(document).ready(function (){
 		initNavbar();
