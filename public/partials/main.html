@@ -9,7 +9,7 @@
 	<div class="row">
 		<section ng-repeat="(index, value) in top">
 			<div  class="square bg waves-effect waves-light" style="background-image: url('{{value.image}}')">
-			    <a class="" href="#/artists/{{value._id}}">
+			    <a class="" href="#/artists/info/{{value._id}}">
 				<div class="content">
 					<div class="table"><h5 class="table-cell">{{value.name}}</h5></div>
 			    </div>
@@ -28,7 +28,7 @@
 	<div class="row">
 		<section ng-repeat="(index, value) in recent">
 			<div  class="square bg waves-effect waves-light" style="background-image: url('{{value.image}}')">
-			    <a href="#/artists/{{value._id}}">
+			    <a href="#/artists/info/{{value._id}}">
 				<div class="content">
 					<div class="table"><h5 class="table-cell">{{value.name}}</h5></div>
 			    </div>
@@ -36,20 +36,5 @@
 			</div>
 		</section>
 	</div>
-
-<!--	<div class="row valign-wrapper">
-		<a ng-repeat-start="(index, value) in recent9" ng:show="index < 3" class="col s1" href="#/artists/{{value._id}}"><img class="responsive-img" ng-src="{{value.image}}"></a>
-		<a ng-repeat-end ng:show="index < 3" class="col s3" href="#/artists/{{value._id}}">{{value.name}}</a>
-	</div>
-
-	<div class="row valign-wrapper">
-		<a ng-repeat-start="(index, value) in recent9" ng:show="index >= 3 && index < 6" class="col s1" href="#/artists/{{value._id}}"><img class="responsive-img" ng-src="{{value.image}}"></a>
-		<a ng-repeat-end ng:show="index >= 3 && index < 6" class="col s3" href="#/artists/{{value._id}}">{{value.name}}</a>
-	</div>
-
-	<div class="row valign-wrapper">
-		<a ng-repeat-start="(index, value) in recent9" ng:show="index >= 6" class="col s1" href="#/artists/{{value._id}}"><img class="responsive-img" ng-src="{{value.image}}"></a>
-		<a ng-repeat-end ng:show="index >= 6" class="col s3" href="#/artists/{{value._id}}">{{value.name}}</a>
-	</div>-->
 	
 </section>
