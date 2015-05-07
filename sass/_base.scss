@@ -104,3 +104,15 @@ main {
 .clear {
     clear: both;
 }
+
+.nav-logo {
+    max-height: 64px;
+}
+
+.full-background {
+    background: url(../data/images/wp3.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
