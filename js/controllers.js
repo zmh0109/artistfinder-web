@@ -122,20 +122,22 @@ demoControllers.controller('AlbumNewController', ['$scope', 'Albums', function($
 	});
 }]);
 
-demoControllers.controller('SigninController', ['$scope', 'CommonData' , function($scope, CommonData) {
-  $scope.data = "";
+demoControllers.controller('SigninController', ['$scope', function($scope) {
 	
 	$(document).ready(function (){
 		$('footer').css('display', 'none');
+		$("nav").css('display', 'none');
+		$('body').addClass('full-background');
 	});
 
 }]);
 
-demoControllers.controller('SignupController', ['$scope', 'CommonData' , function($scope, CommonData) {
-  $scope.data = "";
+demoControllers.controller('SignupController', ['$scope', function($scope) {
 	
 	$(document).ready(function (){
 		$('footer').css('display', 'none');
+		$("nav").css('display', 'none');
+		$('body').addClass('full-background');
 	});
 
 }]);
@@ -152,7 +154,9 @@ demoControllers.controller('MainLoggedController', ['$scope', '$http', 'Llamas',
 
 
 function initNavbar() {
+	$('body').removeClass('full-background');
 	$('footer').css('display', 'inline');
+	$('nav').css('display', 'inline');
 	$(".dropdown-button").dropdown();
 	$("#search-form").css('display', 'none');
 	$("#search-trigger").on('click', function () {
