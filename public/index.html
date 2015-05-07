@@ -22,7 +22,7 @@
 		<ul id="user-dropdown" class="dropdown-content">
 		  <li><a href="#/artists/new">Add artist</a></li>
 		  <li><a href="#/albums/new">Add album</a></li>
-		  <li><a href="#/user/settings/user:id">Settings</a></li>
+		  <li><a href="#/user/settings/{{user._id}}">Settings</a></li>
 		  <li><a href="#/home">Logout</a></li>
 		</ul>
 		<div class="navbar-fixed">
@@ -36,19 +36,23 @@
 		        </div>
 		      </form>
 				<div id="navbar">
-					<a href="#/home" class="brand-logo"><img src="./data/images/logo.png" alt="Artist Finder"></a>
+					<a href="#/home" class="brand-logo"><img class="nav-logo" src="./data/images/logo.png" alt="Artist Finder"></a>
 		            <a href="#/home" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 					<ul id="nav-mobile" class="right hide-on-med-and-down">
 						<li><a href="" id="search-trigger"><i class="mdi-action-search"></i></a></li>
-						<li><a class="dropdown-button" href="#!" data-activates="user-dropdown">username<i class="mdi-action-account-circle right"></i></a></li>
+						<li ng-show="user !== undefined"><a class="dropdown-button" href="#!" data-activates="user-dropdown">{{user.name}}<i class="mdi-action-account-circle right"></i></a></li>
+						<li ng-show="user === undefined"><a href="#/signin">Sign in</a></li>
+						<li ng-show="user === undefined"><a href="#/signup">Sign up</a></li>
 					</ul>
 		            <ul class="side-nav" id="mobile-demo" >
 		                <li><a href="" id="search-trigger-mobile"><i class="mdi-action-search"></i></a></li>
-		                <li><a href="" class="disabled" id="user">Username<i class="mdi-action-account-circle right"></i></a></li>
-						<li><a href="#/artists/new">Add artist</a></li>
-					    <li><a href="#/albums/new">Add album</a></li>
-					    <li><a href="#/user/settings/user:id">Settings</a></li>
-					    <li><a href="#/home">Logout</a></li>
+		                <li ng-show="user !== undefined"><a href="" class="disabled" id="user">{{user.name}}<i class="mdi-action-account-circle right"></i></a></li>
+						<li ng-show="user !== undefined"><a href="#/artists/new">Add artist</a></li>
+					    <li ng-show="user !== undefined"><a href="#/albums/new">Add album</a></li>
+					    <li ng-show="user !== undefined"><a href="#/user/settings/user:id">Settings</a></li>
+					    <li ng-show="user !== undefined"><a href="#/home">Sign out</a></li>
+						<li ng-show="user === undefined"><a href="#/signin">Sign in</a></li>
+						<li ng-show="user === undefined"><a href="#/signup">Sign up</a></li>
 		            </ul>
 				</div>
 			</div>
