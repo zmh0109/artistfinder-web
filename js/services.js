@@ -25,6 +25,18 @@ angular.module('demoServices', [])
                 $http.get(baseUrl+'/api/artists/' + id).success(function(data){
                     callback(data);
                 });
+            },
+            updateArtist: function(data, callback){
+                var baseUrl = "http://localhost:4000";
+                $http.put(baseUrl+'/api/artists/' + data._id, $.param(data)).success(function(){
+                    callback();
+                });
+            },
+            deleteArist: function(artistId, callback){
+                var baseUrl = "http://localhost:4000";
+                $http.delete(baseUrl+'/api/artists/' + artistId).success(function(){
+                    callback();
+                });
             }
         }
     })

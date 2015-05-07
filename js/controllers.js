@@ -23,14 +23,14 @@ demoControllers.controller('SettingsController', ['$scope', '$routeParams', 'Use
 	$scope.userID = $routeParams.id;
 	Users.getUserById($scope.userID, function(data){
 		$scope.user = data.data;
-	})
+	});
 	$scope.update_user = function(){
 		Users.updateUser($scope.user, function(){});
-	}
+	};
 
 	$scope.delete_user = function(){
 		Users.deleteUser($scope.userID, function(){});
-	}	
+	};	
 
 	$(document).ready(function (){
 		initNavbar();
@@ -80,6 +80,32 @@ demoControllers.controller('ArtistEditController', ['$scope', '$routeParams', 'A
 			}
 		}
 	});
+	
+	$scope.update_artist = function(){
+		Artists.updateArtist($scope.artist, function(){
+
+		});
+	};
+
+	$scope.delete_artist = function(){
+		Artists.deleteArtist($scope.artistId, function(){
+			
+		});
+	};
+	
+	$scope.add_member = function(memberId){
+		$scope.artist.members.push(memberId);
+		Artists.updateArtist($scope.artist, function(){
+			$route.reload();
+		});
+	};
+	
+	$scope.remove_member = function(memberId){
+		$scope.artist.members.pop(memberId);
+		Artists.updateArtist($scope.artist, function(){
+			$route.reload();
+		});
+	};
 
 	$(document).ready(function (){
 		initNavbar();
