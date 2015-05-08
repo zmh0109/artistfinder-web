@@ -32,9 +32,9 @@ angular.module('demoServices', [])
                     callback();
                 });
             },
-            deleteArist: function(artistId, callback){
+            deleteArist: function(artistId, userId, callback){
                 var baseUrl = "http://localhost:4000";
-                $http.delete(baseUrl+'/api/artists/' + artistId).success(function(){
+                $http.delete(baseUrl+'/api/artists/' + artistId, $.param({'userId':userId})).success(function(){
                     callback();
                 });
             },
@@ -71,6 +71,24 @@ angular.module('demoServices', [])
                 $http.delete(baseUrl+'/api/users/'+userID).success(function(){
                     callback();
                 });
+            },
+            signup: function(user, callback) {
+                var baseUrl = "http://localhost:4000";
+                $http.post(baseUrl+'/api/signup', $.param(user)).success(function(data){
+                    callback(data);  
+                }); 
+            },
+            signin: function(user, callback) {
+                var baseUrl = "http://localhost:4000";
+                $http.post(baseUrl+'/api/signin', $.param(user)).success(function(data){
+                    callback(data);  
+                }); 
+            },
+            verify: function(callback) {
+                var baseUrl = "http://localhost:4000";
+                $http.get(baseUrl+'/api/profile').success(function(data){
+                    callback(data);  
+                }); 
             }
         }
     })

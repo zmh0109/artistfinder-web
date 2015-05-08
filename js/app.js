@@ -52,3 +52,7 @@ demoApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $ht
 	 redirectTo: '/home'
 	});
 }]);
+
+demoApp.run(function($rootScope) {
+    $rootScope.user = undefined;
+})

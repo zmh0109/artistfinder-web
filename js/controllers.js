@@ -1,15 +1,20 @@
 var demoControllers = angular.module('demoControllers', []);
 
-demoControllers.controller('MainController', ['$scope', 'Artists'  , function($scope, Artists) {
+demoControllers.controller('MainController', ['$scope', '$rootScope', 'Artists', 'Users', '$window', function($scope, $rootScope, Artists, Users, $window) {
 	$scope.top = {};
 	$scope.artists = {};
+	$scope.user = {};
+	$scope.logged = false;
 	$scope.recent = Array();
+	
    	Artists.getTopN(9, function(data){
    		$scope.top = data.data;
    	});
+	   
 	Artists.get(function (data) {
 		$scope.artists = data.data;
 	});
+	
    	Artists.getRecentlyAddedN(9, function(data){
    		for (var i = 0; i < data.data.length; i++) {
    			Artists.getArtistById(data.data[i].modelId, function(artist) {
@@ -17,14 +22,19 @@ demoControllers.controller('MainController', ['$scope', 'Artists'  , function($s
    			});
    		}
    	});
+	
+	loadUser($rootScope, $scope);
+	 
 	$(document).ready(function (){
 		initNavbar();
 	});
 }]);
 
-demoControllers.controller('SettingsController', ['$scope', '$routeParams', 'Users', '$window' , function($scope, $routeParams, Users, $window) {
-	$scope.user = "";
+demoControllers.controller('SettingsController', ['$scope', '$rootScope', '$routeParams', 'Users', '$window' , function($scope, $rootScope, $routeParams, Users, $window) {
 	$scope.userID = $routeParams.id;
+	$scope.user = {};
+	$scope.logged = false;
+	
 	Users.getUserById($scope.userID, function(data){
 		$scope.user = data.data;
 	});
@@ -36,16 +46,22 @@ demoControllers.controller('SettingsController', ['$scope', '$routeParams', 'Use
 		Users.deleteUser($scope.userID, function(){});
 	};	
 
+	if(!loadUser($rootScope, $scope)) {
+		$window.location.href = '/#/signin';
+	}
+
 	$(document).ready(function (){
 		initNavbar();
 	});
 }]);
 
-demoControllers.controller('ArtistInfoController', ['$scope', '$routeParams', 'Artists', 'Albums', function($scope, $routeParams, Artists, Albums) {
+demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$routeParams', '$window', 'Artists', 'Albums', function($scope, $rootScope, $routeParams, $window, Artists, Albums) {
 	$scope.artist = "";
 	$scope.members = Array();
 	$scope.albums = null;
 	$scope.ID = $routeParams.id;
+	$scope.user = {};
+	$scope.logged = false;
 	
 	Artists.getArtistById($scope.ID, function(data) {
 		$scope.artist = data.data;
@@ -63,16 +79,25 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$routeParams', 'A
 	Albums.getByArtist($scope.ID, function(albums) {
 		$scope.albums = albums.data;
 	});
+	
+	loadUser($rootScope, $scope);
 
 	$(document).ready(function (){
 		initNavbar();
 	});
 }]);
 
-demoControllers.controller('ArtistEditController', ['$scope', '$routeParams', 'Artists', function($scope, $routeParams, Artists) {
+demoControllers.controller('ArtistEditController', ['$scope', '$rootScope', '$routeParams', '$window', '$route', 'Artists', function($scope, $rootScope, $routeParams, $window, $route, Artists) {
 	$scope.artist = "";
 	$scope.members = Array();
 	$scope.ID = $routeParams.id;
+	$scope.user = {};
+	$scope.logged = false;
+	
+	if(!loadUser($rootScope, $scope)) {
+		$window.location.href = '/#/signin';
+	}
+	
 	Artists.getArtistById($scope.ID, function(data){
 		$scope.artist = data.data;
 		
@@ -86,27 +111,28 @@ demoControllers.controller('ArtistEditController', ['$scope', '$routeParams', 'A
 	});
 	
 	$scope.update_artist = function(){
-		Artists.updateArtist($scope.artist, function(){
-
+		$scope.artist.userId = $scope.user._id;
+		Artists.updateArtist($scope.artist,  function(){
+			$window.location.href = '/#/artists/info/' + $scope.artist._id;
 		});
 	};
 
 	$scope.delete_artist = function(){
-		Artists.deleteArtist($scope.artistId, function(){
-			
+		Artists.deleteArtist($scope.artistId, $scope.user._id,  function(){
+			$window.location.href = '/#/home';
 		});
 	};
 	
 	$scope.add_member = function(memberId){
 		$scope.artist.members.push(memberId);
-		Artists.updateArtist($scope.artist, function(){
+		Artists.updateArtist($scope.artist, $scope.user._id,  function(){
 			$route.reload();
 		});
 	};
 	
 	$scope.remove_member = function(memberId){
 		$scope.artist.members.pop(memberId);
-		Artists.updateArtist($scope.artist, function(){
+		Artists.updateArtist($scope.artist, $scope.user._id,  function(){
 			$route.reload();
 		});
 	};
@@ -116,43 +142,89 @@ demoControllers.controller('ArtistEditController', ['$scope', '$routeParams', 'A
 	});
 }]);
 
-demoControllers.controller('ArtistNewController', ['$scope', 'Artists', function($scope, Artists) {
+
+demoControllers.controller('ArtistNewController', ['$scope', '$rootScope', 'Artists', '$window', function($scope, $rootScope, $window, Artists) {
 	$scope.artist = null;
-
+	$scope.user = {};
+	$scope.logged = false;
+	
+	if(!loadUser($rootScope, $scope)) {
+		$window.location.href = '/#/signin';
+	}
+	
+	if($window.user !== undefined) {
+		$scope.logged = true;
+		$scope.user = $window.user;
+	} 
+	else {
+		$window.location.href = '/#/signin';
+	}
+	
 	$(document).ready(function (){
 		initNavbar();
 	});
 }]);
 
-demoControllers.controller('AlbumInfoController', ['$scope', '$routeParams', 'Albums', 'Artists', function($scope, $routeParams, Albums, Artists) {
+
+demoControllers.controller('AlbumInfoController', ['$scope', '$rootScope', '$routeParams', '$window', 'Albums', 'Artists', function($scope, $rootScope, $routeParams, $window, Albums, Artists) {
 	$scope.artist = "";
 	$scope.album = "";
 	$scope.ID = $routeParams.id;
-
+	$scope.user = {};
+	$scope.logged = false;
+	
+	loadUser($rootScope, $scope)
+	
+	if($window.user !== undefined) {
+		$scope.logged = true;
+		$scope.user = $window.user;
+	}
+	
 	$(document).ready(function (){
 		initNavbar();
 	});
 }]);
 
-demoControllers.controller('AlbumEditController', ['$scope', '$routeParams', 'Albums', 'Artists', function($scope, $routeParams, Albums, Artists) {
+
+demoControllers.controller('AlbumEditController', ['$scope', '$rootScope', '$routeParams', '$window', 'Albums', 'Artists', function($scope, $rootScope, $routeParams, $window, Albums, Artists) {
 	$scope.artist = "";
 	$scope.album = "";
 	$scope.ID = $routeParams.id;
-
+	$scope.user = {};
+	$scope.logged = false;
+	
+	if(!loadUser($rootScope, $scope)) {
+		$window.location.href = '/#/signin';
+	}
+	
 	$(document).ready(function (){
 		initNavbar();
 	});
 }]);
 
-demoControllers.controller('AlbumNewController', ['$scope', 'Albums', function($scope, Albums) {
+demoControllers.controller('AlbumNewController', ['$scope', '$rooteScope', '$window', 'Albums', function($scope, $rootScope, $window, Albums) {
 	$scope.album = null;
-
+	$scope.user = {};
+	$scope.logged = false;
+	
+	if(!loadUser($rootScope, $scope)) {
+		$window.location.href = '/#/signin';
+	}
+	
 	$(document).ready(function (){
 		initNavbar();
 	});
 }]);
 
-demoControllers.controller('SigninController', ['$scope', function($scope) {
+demoControllers.controller('SigninController', ['$scope', '$rootScope', '$location', '$window', 'Users', function($scope, $rootScope, $location, $window, Users) {
+	$scope.user = {};
+	
+	$scope.signin = function() {
+		Users.signin($scope.user, function(data){
+			$rootScope.user = data.user;
+			$location.url('/#/home');
+		});
+	};	
 	
 	$(document).ready(function (){
 		$('footer').css('display', 'none');
@@ -162,7 +234,16 @@ demoControllers.controller('SigninController', ['$scope', function($scope) {
 
 }]);
 
-demoControllers.controller('SignupController', ['$scope', function($scope) {
+
+demoControllers.controller('SignupController', ['$scope', '$rootScope', '$location', 'Users', function($scope, $rootScope, $location, Users) {
+	$scope.user = {};
+	
+	$scope.signup = function() {
+		Users.signup($scope.user, function(data){
+			$rootScope.user = data.user;
+			$location.url('/#/home');
+		});
+	};	
 	
 	$(document).ready(function (){
 		$('footer').css('display', 'none');
@@ -172,16 +253,17 @@ demoControllers.controller('SignupController', ['$scope', function($scope) {
 
 }]);
 
-demoControllers.controller('MainLoggedController', ['$scope', '$http', 'Llamas', '$window' , function($scope, $http,  Llamas, $window) {
-
-  $(document).ready(function (){
-		initNavbar();
-	});
-
-}]);
-
-
-
+function loadUser($rootScope, $scope) {
+	if($rootScope.user !== undefined) {
+		$scope.logged = true;
+		$scope.user = $rootScope.user;
+		return true;
+	}
+	else {
+		$scope.logged = false;
+		return false;
+	}
+}
 
 function initNavbar() {
 	$('body').removeClass('full-background');
