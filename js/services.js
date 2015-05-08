@@ -37,6 +37,12 @@ angular.module('demoServices', [])
                 $http.delete(baseUrl+'/api/artists/' + artistId).success(function(){
                     callback();
                 });
+            },
+            get: function(callback){
+                var baseUrl = "http://localhost:4000";
+                $http.get(baseUrl+'/api/artists').success(function(data){
+                    callback(data);
+                });
             }
         }
     })

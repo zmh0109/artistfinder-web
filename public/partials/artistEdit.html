@@ -1,4 +1,13 @@
-
+<div id="search-results" class="container">
+	<div ng-repeat="a in artists | filter: search | limitTo:10">
+		<a href="#/artists/info/{{a._id}}" class="search-result">
+			<div class="card">
+				<div class="card-content"><h5 class="truncate"><i ng-show="a.isBand === false" class="fa fa-user"></i><i ng-show="a.isBand === true" class="fa fa-users"></i>  {{a.name}}</h5></div>
+			</div>
+		</a>
+	</div>
+</div>
+<section>
 	<div class="row">
 		<div id="side-nav" class="col s12 m3">
 			<br></br>
@@ -8,6 +17,12 @@
 			<br>
 			
 			<form>
+				<div class="input-field col s10 offset-s1">
+					<i class="fa fa-2x fa-picture-o prefix"></i>
+					<input ng-model="artist.image" type="text" id="image">
+					<label for="image" class="active">Image url</label>
+				</div>
+				
 				<div class="input-field col s10 offset-s1">
 					<i class="fa fa-2x fa-twitter prefix"></i>
 					<input ng-model="artist.twitter" type="text" id="twitter">
@@ -43,7 +58,6 @@
 					<input ng-model="artist.website" type="url" id="website" validate>
 					<label for="website" class="active">Official website</label>
 				</div>
-				
 				<div class="row">
 					<button ng-click="update_artist()" class="col s8 offset-s2 btn waves-effect waves-light">Save</button>
 				</div>
@@ -67,6 +81,11 @@
 				<label for="name" class="active">Bio</label>
 			</div>
 			
+			<div class="col s10 offset-s1">
+				<input ng-model="artist.isBand" type="checkbox" id="isBand">
+				<label for="isBand" class="active">This page is for a band</label>
+			</div>
+			
 			<br>
 			
 			<div ng-show="artist.isBand === true">
@@ -76,9 +95,13 @@
 					<ul class="collection with-header col s10 offset-s1">
 						<li class="collection-header"><h5>Members</h5></li>
 						<li ng-repeat="member in members" class="collection-item"><div>{{member.name}}<a href="#!" ng-click="remove_member(member._id)" class="secondary-content"><i class="mdi-action-highlight-remove red-text darken-2"></i></a></div></li>
-						<li class="collection-item"><div><input placeholder="Paste Artist Finder ID of band member here" type="text"><a href="#!" ng-click="add_member(member._id)" class="btn waves-effect waves-light">Add member</a></div></li>
+						<li class="collection-item"><div>
+							<input placeholder="Paste Artist Finder ID of band member here" type="text" ng-model="newMember">
+								<a href="#!" ng-click="add_member(newMember)" class="btn waves-effect waves-light">Add member</a>
+									</div></li>
 					</ul>					
 				</div>
 			</div>
 		</div>	
 	</div>
+</section>

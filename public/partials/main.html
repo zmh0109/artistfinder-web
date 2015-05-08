@@ -1,4 +1,14 @@
+<div id="search-results" class="container">
+	<div ng-repeat="a in artists | filter: search | limitTo:10">
+		<a href="#/artists/info/{{a._id}}" class="search-result">
+			<div class="card">
+				<div class="card-content"><h5 class="truncate"><i ng-show="a.isBand === false" class="fa fa-user"></i><i ng-show="a.isBand === true" class="fa fa-users"></i>  {{a.name}}</h5></div>
+			</div>
+		</a>
+	</div>
+</div>
 <section class="container">
+	
 	<div class="section">
 		<h5>Top Artists</h5>
 		<p>The most followed artists at the moment</p>
@@ -35,6 +45,5 @@
 				</a>
 			</div>
 		</section>
-	</div>
-	
+	</div>	
 </section>

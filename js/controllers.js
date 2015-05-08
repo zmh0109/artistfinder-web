@@ -2,10 +2,14 @@ var demoControllers = angular.module('demoControllers', []);
 
 demoControllers.controller('MainController', ['$scope', 'Artists'  , function($scope, Artists) {
 	$scope.top = {};
+	$scope.artists = {};
 	$scope.recent = Array();
    	Artists.getTopN(9, function(data){
    		$scope.top = data.data;
    	});
+	Artists.get(function (data) {
+		$scope.artists = data.data;
+	});
    	Artists.getRecentlyAddedN(9, function(data){
    		for (var i = 0; i < data.data.length; i++) {
    			Artists.getArtistById(data.data[i].modelId, function(artist) {
@@ -182,7 +186,9 @@ demoControllers.controller('MainLoggedController', ['$scope', '$http', 'Llamas',
 function initNavbar() {
 	$('body').removeClass('full-background');
 	$('footer').css('display', 'inline');
+	$('#search-results').css('display', 'none');
 	$('nav').css('display', 'inline');
+	$('#navbar').css('display', 'inline');
 	$(".dropdown-button").dropdown();
 	$("#search-form").css('display', 'none');
 	$("#search-trigger").on('click', function () {
@@ -190,9 +196,18 @@ function initNavbar() {
 		$("#search-form").css('display', 'inline');
 		$("#search").focus();
 	});
-	$("#search-form").on('focusout', function () {
+	$("#close-search").on('click', function () {
 		$("#navbar").css('display', 'inline');
 		$("#search-form").css('display', 'none');
+		$('#search-results').css('display', 'none');
+	});
+	$("#search").on('keyup', function () {
+		if ($('#search').val().length > 0) {
+			$('#search-results').css('display', 'block');
+		}
+		else {
+			$('#search-results').css('display', 'none');
+		}
 	});
 	$("#search-trigger-mobile").on('click', function () {
 		$("#navbar").css('display', 'none');

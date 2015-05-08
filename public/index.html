@@ -32,9 +32,9 @@
 			<div class="nav-wrapper">
 				<form id="search-form">
 		        <div class="input-field">
-		          <input id="search" type="search" required autofocus="autofocus">
+		          <input id="search" ng-model="search.name" type="search" required autofocus="autofocus">
 		          <label for="search"><i class="mdi-action-search"></i></label>
-		          <i class="mdi-navigation-close"></i>
+		          <i class="mdi-navigation-close" id="close-search"></i>
 		        </div>
 		      </form>
 				<div id="navbar">
@@ -62,7 +62,6 @@
 		</div>
 		
 		<main ng-view></main>
-			
 		<footer class="page-footer">
 			<div class="container">
 			<div class="row">
