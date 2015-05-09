@@ -1,6 +1,5 @@
 <ul id="user-dropdown" class="dropdown-content">
-  <li><a href="#/artists/new">Add artist</a></li>
-  <li><a href="#/albums/new">Add album</a></li>
+
   <li><a href="#/user/settings/{{user._id}}">Settings</a></li>
   <li><a href="#/signout">Sign out</a></li>
 </ul>
@@ -15,10 +14,12 @@
         </div>
       </form>
 		<div id="navbar">
-			<a href="#/home" class="brand-logo"><img class="nav-logo" src="./data/images/logo.png" alt="Artist Finder"></a>
+			<a href="#/home" class="brand-logo"><img class="nav-logo" src="./data/images/logo1.png" alt="Artist Finder"></a>
             <a href="#/home" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<li><a href="" id="search-trigger"><i class="mdi-action-search"></i></a></li>
+                <li ng-show="logged === true"><a href="#/artists/new">Add artist</a></li>
+                <li ng-show="logged === true"><a href="#/albums/new">Add album</a></li>
 				<li ng-show="logged === true"><a class="dropdown-button" href="#!" data-activates="user-dropdown">{{user.name}}<i class="mdi-action-account-circle right"></i></a></li>
 				<li ng-show="logged === false"><a href="#/signin">Sign in</a></li>
 				<li ng-show="logged === false"><a href="#/signup">Sign up</a></li>
@@ -49,7 +50,7 @@
 <section>
 	<div class="row">
 		<div id="side-nav" class="col s12 m3">
-			<br></br>
+			<br>
 			<div id="artist-img" class="square bg circle" style="background-image: url('{{artist.image}}')">
 				<div class="content">
 			    </div>
@@ -108,12 +109,19 @@
 			            <div class="card-image waves-effect">
 							<a href="#/albums/info/{{album._id}}">
 			              <img ng-src="{{album.image}}">
-			              <span class="card-title">{{album.name}}</span>
+			              <!--<span class="card-title">{{album.name}}</span>-->
 							  </a>
 			            </div>
 			            <div class="card-content">
+                            <span class="card-title activator grey-text text-darken-4">{{album.name}} <i class="mdi-navigation-more-vert right"></i></span>
 			              <p><i class="fa fa-calendar-o"></i> {{album.releaseDate | date: 'mediumDate'}}</p>
 			            </div>
+                          <div class="card-reveal">
+                             <span class="card-title grey-text text-darken-4">{{album.name}} <i class="mdi-navigation-close right"></i></span>
+                             <div ng-repeat="track in albums.tracks">
+                                 <li>{track}</li>
+                                 </div>
+                          </div>
 			          </div>
 			        </div>
 				</div>
