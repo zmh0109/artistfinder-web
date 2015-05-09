@@ -10,7 +10,7 @@ angular.module('demoServices', [])
                 });
             },
             getRecent: function(n, callback){
-                $http.get(baseUrl+'/changelogs?sort={\"date\":-1}&where={\"operation\": \"post\", \"model\": \"artist\"}&limit='+n.toString()).success(function(data){
+                $http.get(baseUrl+'/changelogs?where={\"operation\": \"post\", \"model\": \"artist\"}&limit='+n.toString()).success(function(data){
                     callback(data);
                 });
             },
@@ -87,11 +87,16 @@ angular.module('demoServices', [])
                     callback();
                 });
             },
-            delete: function(userId, callback){
-                $http.delete(baseUrl+'/albums/'+userId).success(function(){
+            delete: function(album, callback){
+                $http.delete(baseUrl+'/albums/'+album._id, $.param(album)).success(function(){
                     callback();
                 });
             },
+            post: function(data, callback){
+                $http.post(baseUrl+'/albums/', $.param(data)).success(function(data){
+                    callback(data);
+                });
+            }
         }
     })
     ;
