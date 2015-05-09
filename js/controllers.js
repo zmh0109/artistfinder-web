@@ -69,7 +69,7 @@ demoControllers.controller('SettingsController', ['$scope', '$rootScope', '$rout
 	});
 }]);
 
-demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$routeParams', '$window', 'Artists', 'Albums', function($scope, $rootScope, $routeParams, $window, Artists, Albums) {
+demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$routeParams', '$window', 'Artists', 'Albums', 'Users', function($scope, $rootScope, $routeParams, $window, Artists, Albums, Users) {
 	$scope.artist = "";
 	$scope.members = Array();
 	$scope.albums = null;
@@ -77,6 +77,7 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$ro
 	$scope.user = {};
 	$scope.logged = false;
 	$scope.artists = {};
+	$scope.isFavorite = false;
 	
 	Artists.get(function (data) {
 		$scope.artists = data.data;
@@ -84,6 +85,14 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$ro
 	
 	Artists.getById($scope.ID, function(data) {
 		$scope.artist = data.data;
+		
+		if (loadUser($rootScope, $scope, $window)) {
+			for (var i = 0; i < $scope.user.favorites.length; i++) {
+				if ($scope.user.favorites[i] === $scope.artist._id) {
+					$scope.isFavorite = true;
+				}
+			}
+		}
 		
 		if(data.data.isBand) {
 			for (var i = 0; i < data.data.members.length; i++) {
@@ -95,11 +104,34 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$ro
 		
 	});
 	
+	
+	
+	
+//	$scope.add_favorite = function() {
+//		Users.update($scope.user, function(){});
+//	};
+//	
+//	$scope.add_member = function(memberId){
+//		$scope.artist.userId = $scope.user._id;
+//		$scope.artist.members.push(memberId);
+//		Artists.update($scope.artist, $scope.user._id,  function(){
+//			$route.reload();
+//		});
+//	};
+//	
+	
+	
 	Albums.getByArtist($scope.ID, function(albums) {
 		$scope.albums = albums.data;
 	});
-	
-	loadUser($rootScope, $scope, $window);
+
+    $scope.enterAlbum = function(){
+        $scope.class='card large';
+    };
+
+    $scope.leaveAlbum = function(){
+        $scope.class='card medium';
+    };
 
 	$(document).ready(function (){
 		initNavbar();

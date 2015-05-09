@@ -597,7 +597,7 @@ if ($) { Vel = $.Velocity } else { Vel = Velocity};
     $('.dropdown-button').dropdown();
   });
 }( jQuery ));
-;(function($) {
+(function($) {
   $.fn.extend({
     openModal: function(options) {
       var modal = this;
