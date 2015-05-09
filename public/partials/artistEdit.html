@@ -2,7 +2,7 @@
   <li><a href="#/artists/new">Add artist</a></li>
   <li><a href="#/albums/new">Add album</a></li>
   <li><a href="#/user/settings/{{user._id}}">Settings</a></li>
-  <li><a href="#/home">Logout</a></li>
+  <li><a href="#/signout">Sign out</a></li>
 </ul>
 <div class="navbar-fixed">
 <nav>
@@ -29,7 +29,7 @@
 				<li ng-show="logged === true"><a href="#/artists/new">Add artist</a></li>
 			    <li ng-show="logged === true"><a href="#/albums/new">Add album</a></li>
 			    <li ng-show="logged === true"><a href="#/user/settings/user:id">Settings</a></li>
-			    <li ng-show="logged === true"><a href="#/home">Sign out</a></li>
+			    <li ng-show="logged === true"><a href="#/signout">Sign out</a></li>
 				<li ng-show="logged === false"><a href="#/signin">Sign in</a></li>
 				<li ng-show="logged === false"><a href="#/signup">Sign up</a></li>
             </ul>

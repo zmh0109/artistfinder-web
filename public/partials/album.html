@@ -2,7 +2,7 @@
   <li><a href="#/artists/new">Add artist</a></li>
   <li><a href="#/albums/new">Add album</a></li>
   <li><a href="#/user/settings/{{user._id}}">Settings</a></li>
-  <li><a href="#/home">Logout</a></li>
+  <li><a href="#/signout">Sign out</a></li>
 </ul>
 <div class="navbar-fixed">
 <nav>
@@ -15,7 +15,7 @@
         </div>
       </form>
 		<div id="navbar">
-			<a href="#/home" class="brand-logo"><img class="nav-logo" src="../data/images/logo.png" alt="Artist Finder"></a>
+			<a href="#/home" class="brand-logo"><img class="nav-logo" src="./data/images/logo.png" alt="Artist Finder"></a>
             <a href="#/home" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
 			<ul id="nav-mobile" class="right hide-on-med-and-down">
 				<li><a href="" id="search-trigger"><i class="mdi-action-search"></i></a></li>
@@ -29,7 +29,7 @@
 				<li ng-show="logged === true"><a href="#/artists/new">Add artist</a></li>
 			    <li ng-show="logged === true"><a href="#/albums/new">Add album</a></li>
 			    <li ng-show="logged === true"><a href="#/user/settings/user:id">Settings</a></li>
-			    <li ng-show="logged === true"><a href="#/home">Sign out</a></li>
+			    <li ng-show="logged === true"><a href="#/signout">Sign out</a></li>
 				<li ng-show="logged === false"><a href="#/signin">Sign in</a></li>
 				<li ng-show="logged === false"><a href="#/signup">Sign up</a></li>
             </ul>
