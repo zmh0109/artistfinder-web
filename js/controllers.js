@@ -125,6 +125,14 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$ro
 		$scope.albums = albums.data;
 	});
 
+    $scope.enterAlbum = function(){
+        $scope.class='card large';
+    };
+
+    $scope.leaveAlbum = function(){
+        $scope.class='card medium';
+    };
+
 	$(document).ready(function (){
 		initNavbar();
 	});
