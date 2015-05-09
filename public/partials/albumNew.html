@@ -47,3 +47,63 @@
 		</a>
 	</div>
 </div>
+<ul id="user-dropdown" class="dropdown-content">
+
+  <li><a href="#/user/settings/{{user._id}}">Settings</a></li>
+  <li><a href="#/signout">Sign out</a></li>
+</ul>
+<section>
+	<div class="row">
+		<div id="side-nav" class="col s12 m3">
+			<br></br>
+			<div id="artist-img" class="square bg" style="background-image: url('{{album.image}}')">
+				<div class="content">
+			    </div>
+			</div>
+			
+			<br>
+				
+			<div class="input-field col s10 offset-s1">
+				<i class="fa fa-2x fa-picture-o prefix"></i>
+				<input ng-model="album.image" type="text" id="image">
+				<label for="image" class="active">Image url</label>
+			</div>
+									
+			<div class="row">
+				<button ng-click="save_album()" class="col s8 offset-s2 btn waves-effect waves-light">Save</button>
+			</div>
+		</div>
+		
+		<div class="col s12 m7 offset-m1">
+			<br></br>
+			<div class="input-field col s10 offset-s1">
+				<input ng-model="album.name" type="text" id="name" validate required>
+				<label for="name" class="active">Album name</label>
+			</div>
+			
+			<div class="input-field col s10 offset-s1">
+				 <input ng-model="album.releaseDate" type="date" class="datepicker" id="date">
+				 <label for="date" class="active">Album release date</label>
+				
+			</div>
+			
+			<div class="input-field col s10 offset-s1">
+				<input ng-model="album.artistId" type="text" id="name" validate required>
+				<label for="name" class="active">Artist AFID</label>
+			</div>
+			
+			<div>
+				<div class="row">
+					<ul class="collection with-header col s10 offset-s1">
+						<li class="collection-header"><h4>Tracks</h4></li>
+						<li ng-repeat="track in album.tracks" class="collection-item"><div>{{track}}<a href="#!" ng-click="remove_track(track)" class="secondary-content"><i class="mdi-action-highlight-remove red-text darken-2"></i></a></div></li>
+						<li class="collection-item"><div>
+							<input placeholder="Track name" type="text" ng-model="newTrack">
+								<a href="#!" ng-click="add_track(newTrack)" class="btn waves-effect waves-light">Add track</a>
+									</div></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
