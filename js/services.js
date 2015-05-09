@@ -1,46 +1,41 @@
+var baseUrl = "http://localhost:4000/api";
+
 // js/services/todos.js
 angular.module('demoServices', [])
     .factory('Artists', function($http, $window){
         return {
-            getTopN: function(n, callback){
-                var baseUrl = "http://localhost:4000";
-                $http.get(baseUrl+'/api/artists?sort={\"favCount\":-1}&limit='+n.toString()).success(function(data){
+            getTop: function(n, callback){
+                $http.get(baseUrl+'/artists?sort={\"favCount\":-1}&limit='+n.toString()).success(function(data){
                     callback(data);
                 });
             },
-            getRecentlyAddedN: function(n, callback){
-                var baseUrl = "http://localhost:4000";
-                $http.get(baseUrl+'/api/changelogs?sort={\"date\":-1}&where={\"operation\": \"post\", \"model\": \"artist\"}&limit='+n.toString()).success(function(data){
+            getRecent: function(n, callback){
+                $http.get(baseUrl+'/changelogs?sort={\"date\":-1}&where={\"operation\": \"post\", \"model\": \"artist\"}&limit='+n.toString()).success(function(data){
                     callback(data);
                 });
             },
             getById: function(id, callback){
-                var baseUrl = "http://localhost:4000";
-                $http.get(baseUrl+'/api/artists?where={\"_id\":\"' + id + '\"}').success(function(data){
+                $http.get(baseUrl+'/artists/' + id).success(function(data){
                     callback(data);
                 });
             },
-            getArtistById: function(id, callback){
-                var baseUrl = "http://localhost:4000";
-                $http.get(baseUrl+'/api/artists/' + id).success(function(data){
-                    callback(data);
-                });
-            },
-            updateArtist: function(data, callback){
-                var baseUrl = "http://localhost:4000";
-                $http.put(baseUrl+'/api/artists/' + data._id, $.param(data)).success(function(){
+            update: function(data, callback){
+                $http.put(baseUrl+'/artists/' + data._id, $.param(data)).success(function(){
                     callback();
                 });
             },
-            deleteArist: function(artistId, userId, callback){
-                var baseUrl = "http://localhost:4000";
-                $http.delete(baseUrl+'/api/artists/' + artistId, $.param({'userId':userId})).success(function(){
+            delete: function(artistId, userId, callback){
+                $http.delete(baseUrl+'/artists/' + artistId, $.param({'userId':userId})).success(function(){
                     callback();
                 });
             },
             get: function(callback){
-                var baseUrl = "http://localhost:4000";
-                $http.get(baseUrl+'/api/artists').success(function(data){
+                $http.get(baseUrl+'/artists').success(function(data){
+                    callback(data);
+                });
+            }, 
+            post: function(data, callback) {
+                $http.post(baseUrl+'/artists', $.param(data)).success(function (data) {
                     callback(data);
                 });
             }
@@ -48,45 +43,28 @@ angular.module('demoServices', [])
     })
     .factory('Users', function($http, $window){
         return{
-            // getUsers: function(callback){
-            //     var baseUrl = "http://localhost:4000";
-            //     $http.get(baseUrl+'api/users/').success(function(data){
-            //         callback(data);
-            //     });
-            // },
-            getUserById: function(userID, callback){
-                var baseUrl = "http://localhost:4000";
-                $http.get(baseUrl+'/api/users/' + userID).success(function(data){
+            getById: function(userID, callback){
+                $http.get(baseUrl+'/users/' + userID).success(function(data){
                     callback(data);
                 });
             },
-            updateUser: function(data, callback){
-                var baseUrl = "http://localhost:4000";
-                $http.put(baseUrl+'/api/users/' + data._id, $.param(data)).success(function(){
+            update: function(data, callback){
+                $http.put(baseUrl+'/users/' + data._id, $.param(data)).success(function(){
                     callback();
                 });
             },
-            deleteUser: function(userID, callback){
-                var baseUrl = "http://localhost:4000";
-                $http.delete(baseUrl+'/api/users/'+userID).success(function(){
+            delete: function(userID, callback){
+                $http.delete(baseUrl+'/users/'+userID).success(function(){
                     callback();
                 });
             },
             signup: function(user, callback) {
-                var baseUrl = "http://localhost:4000";
-                $http.post(baseUrl+'/api/signup', $.param(user)).success(function(data){
+                $http.post(baseUrl+'/signup', $.param(user)).success(function(data){
                     callback(data);  
                 }); 
             },
             signin: function(user, callback) {
-                var baseUrl = "http://localhost:4000";
-                $http.post(baseUrl+'/api/signin', $.param(user)).success(function(data){
-                    callback(data);  
-                }); 
-            },
-            verify: function(callback) {
-                var baseUrl = "http://localhost:4000";
-                $http.get(baseUrl+'/api/profile').success(function(data){
+                $http.post(baseUrl+'/signin', $.param(user)).success(function(data){
                     callback(data);  
                 }); 
             }
@@ -95,11 +73,25 @@ angular.module('demoServices', [])
     .factory('Albums', function($http, $window){
         return{
             getByArtist : function(artistId, callback){
-                var baseUrl = "http://localhost:4000";
-                $http.get(baseUrl+'/api/albums?where={\"artistId\":\"' + artistId + '\"}').success(function(data){
+                $http.get(baseUrl+'/albums?where={\"artistId\":\"' + artistId + '\"}').success(function(data){
                     callback(data);
                 });
-            }
+            },
+            getById: function(id, callback) {
+                $http.get(baseUrl+'/albums/'+id).success(function(data) {
+                    callback(data);
+                });
+            },
+            update: function(data, callback){
+                $http.put(baseUrl+'/albums/' + data._id, $.param(data)).success(function(){
+                    callback();
+                });
+            },
+            delete: function(userId, callback){
+                $http.delete(baseUrl+'/albums/'+userId).success(function(){
+                    callback();
+                });
+            },
         }
     })
     ;

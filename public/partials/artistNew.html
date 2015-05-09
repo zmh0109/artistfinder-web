@@ -2,7 +2,7 @@
   <li><a href="#/artists/new">Add artist</a></li>
   <li><a href="#/albums/new">Add album</a></li>
   <li><a href="#/user/settings/{{user._id}}">Settings</a></li>
-  <li><a href="#/home">Logout</a></li>
+  <li><a href="#/signout">Sign out</a></li>
 </ul>
 <div class="navbar-fixed">
 <nav>
@@ -29,7 +29,7 @@
 				<li ng-show="logged === true"><a href="#/artists/new">Add artist</a></li>
 			    <li ng-show="logged === true"><a href="#/albums/new">Add album</a></li>
 			    <li ng-show="logged === true"><a href="#/user/settings/user:id">Settings</a></li>
-			    <li ng-show="logged === true"><a href="#/home">Sign out</a></li>
+			    <li ng-show="logged === true"><a href="#/signout">Sign out</a></li>
 				<li ng-show="logged === false"><a href="#/signin">Sign in</a></li>
 				<li ng-show="logged === false"><a href="#/signup">Sign up</a></li>
             </ul>
@@ -46,3 +46,98 @@
 		</a>
 	</div>
 </div>
+<section>
+	<div class="row">
+		<div id="side-nav" class="col s12 m3">
+			<br></br>
+			<div id="artist-img" class="square bg circle" style="background-image: url('{{artist.image}}')">
+				<div class="content"></div>
+			</div>
+			<br>
+			
+			<form>
+				<div class="input-field col s10 offset-s1">
+					<i class="fa fa-2x fa-picture-o prefix"></i>
+					<input ng-model="artist.image" type="text" id="image">
+					<label for="image" class="active">Image url</label>
+				</div>
+				
+				<div class="input-field col s10 offset-s1">
+					<i class="fa fa-2x fa-twitter prefix"></i>
+					<input ng-model="artist.twitter" type="text" id="twitter">
+					<label for="twitter" class="active">Twitter @</label>
+				</div>
+				
+				<div class="input-field col s10 offset-s1">
+					<i class="fa fa-2x fa-facebook prefix"></i>
+					<input ng-model="artist.facebook" type="text" id="facebook">
+					<label for="facebook" class="active">facebook.com/</label>
+				</div>
+				
+				<div class="input-field col s10 offset-s1">
+					<i class="fa fa-2x fa-instagram prefix"></i>
+					<input ng-model="artist.instagram" type="text" id="instagram">
+					<label for="instagram" class="active">Instagram @</label>
+				</div>
+				
+				<div class="input-field col s10 offset-s1">
+					<i class="fa fa-2x fa-spotify prefix"></i>
+					<input ng-model="artist.spotify" type="text" id="spotify">
+					<label for="spotify" class="active">Spotify ID</label>
+				</div>
+				
+				<div class="input-field col s10 offset-s1">
+					<i class="fa fa-2x fa-lastfm prefix"></i>
+					<input ng-model="artist.lastfm" type="url" id="lastfm" validate>
+					<label for="lastfm" class="active">Last.fm url</label>
+				</div>
+				
+				<div class="input-field col s10 offset-s1">
+					<i class="fa fa-2x fa-external-link prefix"></i>
+					<input ng-model="artist.website" type="url" id="website" validate>
+					<label for="website" class="active">Official website</label>
+				</div>
+				<div class="row">
+					<button ng-click="save_artist()" class="col s8 offset-s2 btn waves-effect waves-light">Submit</button>
+				</div>
+				
+			</form>
+		</div>
+		
+		<div class="col s12 m7 offset-m1">
+			<br></br>
+			
+			<div class="input-field col s10 offset-s1">
+				<input ng-model="artist.name" type="text" id="name" validate required>
+				<label for="name" class="active">Name</label>
+			</div>
+			
+			<div class="input-field col s10 offset-s1">
+				<textarea ng-model="artist.bio" type="text" id="bio" class="materialize-textarea"></textarea>
+				<label for="name" class="active">Bio</label>
+			</div>
+			
+			<div class="col s10 offset-s1">
+				<input ng-model="artist.isBand" type="checkbox" id="isBand">
+				<label for="isBand" class="active">This page is for a band</label>
+			</div>
+			
+			<br>
+			
+			<div ng-show="artist.isBand === true">
+				<br>
+				<div class="row clear">
+					<br></br>
+					<ul class="collection with-header col s10 offset-s1">
+						<li class="collection-header"><h5>Members</h5></li>
+						<li ng-repeat="member in members" class="collection-item"><div>{{member.name}}<a href="#!" ng-click="remove_member(member._id)" class="secondary-content"><i class="mdi-action-highlight-remove red-text darken-2"></i></a></div></li>
+						<li class="collection-item"><div>
+							<input placeholder="Paste Artist Finder ID of band member here" type="text" ng-model="newMember">
+								<a href="#!" ng-click="add_member(newMember)" class="btn waves-effect waves-light">Add member</a>
+									</div></li>
+					</ul>					
+				</div>
+			</div>
+		</div>	
+	</div>
+</section>

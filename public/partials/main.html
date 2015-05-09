@@ -2,7 +2,7 @@
   <li><a href="#/artists/new">Add artist</a></li>
   <li><a href="#/albums/new">Add album</a></li>
   <li><a href="#/user/settings/{{user._id}}">Settings</a></li>
-  <li><a href="#/home">Logout</a></li>
+  <li><a href="#/signout">Sign out</a></li>
 </ul>
 <div class="navbar-fixed">
 <nav>
@@ -37,7 +37,6 @@
 	</div>
 </nav>
 </div>
-
 <div id="search-results" class="container">
 	<div ng-repeat="a in artists | filter: search | limitTo:10">
 		<a href="#/artists/info/{{a._id}}" class="search-result">
@@ -48,7 +47,29 @@
 	</div>
 </div>
 <section class="container">
-<!--	{{user}}-->
+	
+	<div ng-show="favorites.length > 0">
+		<div class="section">
+			<h5>Your favorite artists</h5>
+			<p></p>
+		</div>
+		<div class="divider"></div>
+		<br>
+	
+		<div class="row">
+			<section ng-repeat="(index, value) in favorites">
+				<div  class="square bg waves-effect waves-light" style="background-image: url('{{value.image}}')">
+				    <a class="" href="#/artists/info/{{value._id}}">
+					<div class="content">
+						<div class="table"><h5 class="table-cell">{{value.name}}</h5></div>
+				    </div>
+					</a>
+				</div>
+			</section>
+		</div>
+	</div>
+	
+	
 	<div class="section">
 		<h5>Top Artists</h5>
 		<p>The most followed artists at the moment</p>

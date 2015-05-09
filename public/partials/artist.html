@@ -2,7 +2,7 @@
   <li><a href="#/artists/new">Add artist</a></li>
   <li><a href="#/albums/new">Add album</a></li>
   <li><a href="#/user/settings/{{user._id}}">Settings</a></li>
-  <li><a href="#/home">Logout</a></li>
+  <li><a href="#/signout">Sign out</a></li>
 </ul>
 <div class="navbar-fixed">
 <nav>
@@ -29,7 +29,7 @@
 				<li ng-show="logged === true"><a href="#/artists/new">Add artist</a></li>
 			    <li ng-show="logged === true"><a href="#/albums/new">Add album</a></li>
 			    <li ng-show="logged === true"><a href="#/user/settings/user:id">Settings</a></li>
-			    <li ng-show="logged === true"><a href="#/home">Sign out</a></li>
+			    <li ng-show="logged === true"><a href="#/signout">Sign out</a></li>
 				<li ng-show="logged === false"><a href="#/signin">Sign in</a></li>
 				<li ng-show="logged === false"><a href="#/signup">Sign up</a></li>
             </ul>
@@ -67,8 +67,8 @@
 			<a ng-class="artist.instagram === '' ? 'disabled' : ''" href="http://instagram.com/{{artist.instagram}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-instagram"></i> Instagram</a>
 			<a ng-class="artist.instagram === '' ? 'disabled' : ''" href="http://instagram.com/{{artist.instagram}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-instagram"></i></a>
 					
-			<a ng-class="artist.spotify === '' ? 'disabled' : ''" href="http://play.spotify.com/artist{{artist.spotify}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-spotify"></i> Listen on Spotify</a>
-			<a ng-class="artist.spotify === '' ? 'disabled' : ''" href="http://play.spotify.com/artist{{artist.spotify}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-spotify"></i></a>
+			<a ng-class="artist.spotify === '' ? 'disabled' : ''" href="http://play.spotify.com/artist/{{artist.spotify}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-spotify"></i> Listen on Spotify</a>
+			<a ng-class="artist.spotify === '' ? 'disabled' : ''" href="http://play.spotify.com/artist/{{artist.spotify}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-spotify"></i></a>
 					
 			<a ng-class="artist.lastfm === '' ? 'disabled' : ''" href="{{artist.lastfm}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-lastfm"></i> Last.fm page</a>
 			<a ng-class="artist.lastfm === '' ? 'disabled' : ''" href="{{artist.lastfm}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-lastfm"></i></a>
