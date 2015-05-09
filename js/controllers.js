@@ -91,7 +91,18 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$ro
 	Albums.getByArtist($scope.ID, function(albums) {
 		$scope.albums = albums.data;
 	});
-	
+
+    $scope.enterAlbum = function(){
+
+        $scope.class='card large';
+
+
+    };
+
+    $scope.leaveAlbum = function(){
+        $scope.class='card medium';
+
+    };
 	loadUser($rootScope, $scope, $window);
 
 	$(document).ready(function (){

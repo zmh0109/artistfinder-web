@@ -48,8 +48,8 @@
 	</div>
 </div>
 <section>
-	<div class="row">
-		<div id="side-nav" class="col s12 m3">
+	<div class="row ">
+		<div id="side-nav" class="col s12 m3 card">
 			<br>
 			<div id="artist-img" class="square bg circle" style="background-image: url('{{artist.image}}')">
 				<div class="content">
@@ -57,6 +57,7 @@
 			</div>
 			
 			<br>
+
 			<div class="clear hide-on-med-and-up"><h4 class="center-align">{{artist.name}}</h4></div>
 			
 			<a ng-class="artist.twitter === '' ? 'disabled' : ''" href="http://twitter.com/{{artist.twitter}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-twitter"></i> Twitter</a>
@@ -79,7 +80,9 @@
 					
 			<a href="#/artists/edit/{{artist._id}}" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-pencil-square-o"></i> Edit artist</a>
 			<a href="#/artists/edit/{{artist._id}}" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-pencil-square-o"></i></a>
+
 		</div>
+
 		
 		<div class="col s12 m7 offset-m1">
 			<br></br>
@@ -105,7 +108,7 @@
 				<h5>Albums</h5><br>
 				<div class="row">
 					<div class="col s12 m6" ng-repeat="album in albums">
-			          <div class="card">
+			          <div class="card ">
 			            <div class="card-image waves-effect">
 							<a href="#/albums/info/{{album._id}}">
 			              <img ng-src="{{album.image}}">
@@ -118,9 +121,13 @@
 			            </div>
                           <div class="card-reveal">
                              <span class="card-title grey-text text-darken-4">{{album.name}} <i class="mdi-navigation-close right"></i></span>
-                             <div ng-repeat="track in albums.tracks">
-                                 <li>{track}</li>
-                                 </div>
+                              <ul >
+                                 <li ng-repeat="track in album.tracks"  >
+                                     <div >
+                                        <h6 class="waves-effect waves-light btn">{{track}}</h6>
+                                     </div>
+                                 </li>
+                              </ul>
                           </div>
 			          </div>
 			        </div>
