@@ -87,8 +87,12 @@
         <div class="col s6">
             <h5><i class="mdi-editor-insert-chart"></i>Your stats</h5>
             <br>
-                You joined Artist Finder on
-            <br>{{user.signupDate}}</div>
+            <p><i class="fa fa-calendar-o"></i> You joined Artist Finder on {{user.signupDate | date: 'mediumDate'}}</p>
+            <br>
+            <p><i class="fa fa-line-chart"></i> You helped us contributing on {{user.collaborations.length}} articles. <span ng-show="user.collaborations.length !== 0"> This is about {{user.collaborations.legth * 100 / totalContributions}}% of all the data collaborations!</span></p>
+            <br>
+            <p><i class="fa fa-star"></i> You have {{user.favorites.length}} favorite artists.</p>    
+        </div>
     </div>
     {{user}}
 </section>

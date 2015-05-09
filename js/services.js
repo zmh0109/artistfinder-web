@@ -24,8 +24,8 @@ angular.module('demoServices', [])
                     callback();
                 });
             },
-            delete: function(artistId, userId, callback){
-                $http.delete(baseUrl+'/artists/' + artistId, $.param({'userId':userId})).success(function(){
+            delete: function(artistId, callback){
+                $http.delete(baseUrl+'/artists/' + artistId).success(function(){
                     callback();
                 });
             },
@@ -48,9 +48,15 @@ angular.module('demoServices', [])
                     callback(data);
                 });
             },
-            update: function(data, callback){
-                $http.put(baseUrl+'/users/' + data._id, $.param(data)).success(function(){
+            update: function(user, callback){
+                console.log("USER: ");
+                console.log(user);
+                $http.put(baseUrl+'/users/' + user._id, $.param(user)).success(function(data){
+                    console.log(data);
                     callback();
+                })
+                .error(function(data) {
+                    console.log(data);
                 });
             },
             delete: function(userID, callback){
@@ -88,13 +94,22 @@ angular.module('demoServices', [])
                 });
             },
             delete: function(album, callback){
-                $http.delete(baseUrl+'/albums/'+album._id, $.param(album)).success(function(){
+                $http.delete(baseUrl+'/albums/'+album._id).success(function(){
                     callback();
                 });
             },
             post: function(data, callback){
                 $http.post(baseUrl+'/albums/', $.param(data)).success(function(data){
                     callback(data);
+                });
+            }
+        }
+    })
+    .factory('Changelogs', function($http, $window){
+        return{
+            getCount : function(callback){
+                $http.get(baseUrl+'/changelogs').success(function(data){
+                    callback(data.data.length);
                 });
             }
         }
