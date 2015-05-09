@@ -82,9 +82,10 @@
 			</div>
 			
 			<div class="input-field col s10 offset-s1">
-				 <input ng-model="album.releaseDate" type="date" class="datepicker" id="date">
+				 <datepicker>
+		        	<input ng-model="album.releaseDate" date-min-limit="1900/01/01" date-format="MM/dd/yyyy" type="text" id="date">
+		      	</datepicker>
 				 <label for="date" class="active">Album release date</label>
-				
 			</div>
 			
 			<div class="input-field col s10 offset-s1">
@@ -96,11 +97,7 @@
 				<div class="row">
 					<ul class="collection with-header col s10 offset-s1">
 						<li class="collection-header"><h4>Tracks</h4></li>
-						<li ng-repeat="track in album.tracks" class="collection-item"><div>{{track}}<a href="#!" ng-click="remove_track(track)" class="secondary-content"><i class="mdi-action-highlight-remove red-text darken-2"></i></a></div></li>
-						<li class="collection-item"><div>
-							<input placeholder="Track name" type="text" ng-model="newTrack">
-								<a href="#!" ng-click="add_track(newTrack)" class="btn waves-effect waves-light">Add track</a>
-									</div></li>
+						<br><p>Please save the album and edit it later to add tracks</p>
 					</ul>
 				</div>
 			</div>
