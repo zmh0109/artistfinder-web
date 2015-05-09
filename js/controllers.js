@@ -220,21 +220,59 @@ demoControllers.controller('AlbumInfoController', ['$scope', '$rootScope', '$rou
 }]);
 
 
-demoControllers.controller('AlbumEditController', ['$scope', '$rootScope', '$routeParams', '$window', 'Albums', 'Artists', function($scope, $rootScope, $routeParams, $window, Albums, Artists) {
+demoControllers.controller('AlbumEditController', ['$scope', '$rootScope', '$routeParams', '$window', '$route', 'Albums', 'Artists', function($scope, $rootScope, $routeParams, $window, $route, Albums, Artists) {
 	$scope.artist = "";
 	$scope.album = "";
-	$scope.ID = $routeParams.id;
+	$scope.id = $routeParams.id;
 	$scope.user = {};
 	$scope.logged = false;
 	$scope.artists = {};
+	
+	if(!loadUser($rootScope, $scope, $window)) {
+		$window.location.href = '/#/signin?redirect=' + encodeURIComponent('/#/albums/edit/' + $routeParams.id);
+	}
 	
 	Artists.get(function (data) {
 		$scope.artists = data.data;
 	});
 	
-	if(!loadUser($rootScope, $scope, $window)) {
-		$window.location.href = '/#/signin?redirect=' + encodeURIComponent('/#/albums/edit/' + $routeParams.id);
-	}
+	$scope.update_album = function(){
+		$scope.album.userId = $scope.user._id;
+		Albums.update($scope.album,  function(data){
+			$window.location.href = '/#/albums/info/' + $scope.album._id;
+		});
+	};
+	
+	$scope.delete_album = function(){
+		$scope.album.userId = $scope.user._id;
+		Albums.delete($scope.album,  function(){
+			$window.location.href = '/#/home';
+		});
+	};
+	
+	$scope.add_track = function(track){
+		$scope.album.userId = $scope.user._id;
+		$scope.album.tracks.push(track);
+		Albums.update($scope.album, function(){
+			$window.location.href = '/#/albums/edit/' + $scope.album._id;
+		});
+	};
+	
+	$scope.remove_track = function(track){
+		$scope.album.userId = $scope.user._id;
+		$scope.album.tracks.pop(track);
+		Albums.update($scope.album,  function(){
+			$window.location.href = '/#/albums/edit/' + $scope.album._id;
+		});
+	};
+	
+	Albums.getById($scope.id, function(data) {
+		$scope.album = data.data;
+		
+		Artists.getById(data.data.artistId, function (data) {
+			$scope.artist = data.data;
+		});
+	});
 	
 	$(document).ready(function (){
 		initNavbar();
@@ -242,7 +280,7 @@ demoControllers.controller('AlbumEditController', ['$scope', '$rootScope', '$rou
 }]);
 
 demoControllers.controller('AlbumNewController', ['$scope', '$rootScope', '$window', 'Albums', 'Artists', function($scope, $rootScope, $window, Albums, Artists) {
-	$scope.album = null;
+	$scope.album = {};
 	$scope.user = {};
 	$scope.logged = false;
 	$scope.artists = {};
@@ -254,6 +292,13 @@ demoControllers.controller('AlbumNewController', ['$scope', '$rootScope', '$wind
 	if(!loadUser($rootScope, $scope)) {
 		$window.location.href = '/#/signin?redirect=' + encodeURIComponent('/#/albums/new/');
 	}
+	
+	$scope.save_album = function(){
+		$scope.album.userId = $scope.user._id;
+		Albums.post($scope.artist,  function(data){
+			$window.location.href = '/#/artists/info/' + data.data._id;
+		});
+	};
 	
 	$(document).ready(function (){
 		initNavbar();

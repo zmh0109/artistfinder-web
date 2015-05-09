@@ -46,3 +46,36 @@
 		</a>
 	</div>
 </div>
+<section>
+	<div class="row">
+		<div id="side-nav" class="col s12 m3">
+			<br></br>
+			<div id="artist-img" class="square bg" style="background-image: url('{{album.image}}')">
+				<div class="content">
+			    </div>
+			</div>
+			
+			<br>
+			<div class="clear hide-on-med-and-up"><h4 class="center-align">{{album.name}}</h4></div>
+									
+			<a href="#/albums/edit/{{album._id}}" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-pencil-square-o"></i> Edit album</a>
+			<a href="#/albums/edit/{{album._id}}" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-pencil-square-o"></i></a>
+		</div>
+		
+		<div class="col s12 m7 offset-m1">
+			<br></br>
+			<h4 class="hide-on-small-only">{{album.name}}</h4>
+			<h6>by <a href="#/artists/info/{{artist._id}}">{{artist.name}}</a></h6>
+			<br>
+			
+			<div ng-show="album.tracks.length !== 0">
+				<div class="row">
+					<ul class="collection with-header col s12">
+						<li class="collection-header"><h4>Tracks</h4></li>
+						<li ng-repeat="track in album.tracks" class="collection-item">{{track}}</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
