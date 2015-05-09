@@ -10,7 +10,7 @@ angular.module('demoServices', [])
                 });
             },
             getRecent: function(n, callback){
-                $http.get(baseUrl+'/changelogs?sort={\"date\":-1}&where={\"operation\": \"post\", \"model\": \"artist\"}&limit='+n.toString()).success(function(data){
+                $http.get(baseUrl+'/changelogs?sort={\"date\":1}&where={\"operation\": \"post\", \"model\": \"artist\"}&limit='+n.toString()).success(function(data){
                     callback(data);
                 });
             },

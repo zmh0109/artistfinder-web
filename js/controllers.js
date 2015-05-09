@@ -135,12 +135,14 @@ demoControllers.controller('ArtistEditController', ['$scope', '$rootScope', '$ro
 	};
 
 	$scope.delete_artist = function(){
+		$scope.artist.userId = $scope.user._id;
 		Artists.delete($scope.artistId, $scope.user._id,  function(){
 			$window.location.href = '/#/home';
 		});
 	};
 	
 	$scope.add_member = function(memberId){
+		$scope.artist.userId = $scope.user._id;
 		$scope.artist.members.push(memberId);
 		Artists.update($scope.artist, $scope.user._id,  function(){
 			$route.reload();
@@ -148,6 +150,7 @@ demoControllers.controller('ArtistEditController', ['$scope', '$rootScope', '$ro
 	};
 	
 	$scope.remove_member = function(memberId){
+		$scope.artist.userId = $scope.user._id;
 		$scope.artist.members.pop(memberId);
 		Artists.update($scope.artist, $scope.user._id,  function(){
 			$route.reload();
@@ -165,6 +168,7 @@ demoControllers.controller('ArtistNewController', ['$scope', '$rootScope', '$win
 	$scope.user = {};
 	$scope.logged = false;
 	$scope.artists = {};
+	$scope.artist.isBand = false;
 	
 	Artists.get(function (data) {
 		$scope.artists = data.data;
@@ -189,15 +193,23 @@ demoControllers.controller('ArtistNewController', ['$scope', '$rootScope', '$win
 
 
 demoControllers.controller('AlbumInfoController', ['$scope', '$rootScope', '$routeParams', '$window', 'Albums', 'Artists', function($scope, $rootScope, $routeParams, $window, Albums, Artists) {
-	$scope.artist = "";
-	$scope.album = "";
-	$scope.ID = $routeParams.id;
+	$scope.artist = {};
+	$scope.album = {};
+	$scope.id = $routeParams.id;
 	$scope.user = {};
 	$scope.logged = false;
 	$scope.artists = {};
 	
 	Artists.get(function (data) {
 		$scope.artists = data.data;
+	});
+	
+	Albums.getById($scope.id, function(data) {
+		$scope.album = data.data;
+		
+		Artists.getById(data.data.artistId, function (data) {
+			$scope.artist = data.data;
+		});
 	});
 	
 	loadUser($rootScope, $scope, $window);
