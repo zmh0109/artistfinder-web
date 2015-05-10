@@ -20,9 +20,14 @@ angular.module('demoServices', [])
                 });
             },
             update: function(data, callback){
-                $http.put(baseUrl+'/artists/' + data._id, $.param(data)).success(function(){
+                $http.put(baseUrl+'/artists/' + data._id, $.param(data)).success(function(data){
+                    console.log(data);
                     callback();
+                })
+                .error(function(data) {
+                    console.log(data);
                 });
+                
             },
             delete: function(artistId, callback){
                 $http.delete(baseUrl+'/artists/' + artistId).success(function(){
