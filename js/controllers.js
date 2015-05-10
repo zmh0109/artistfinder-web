@@ -415,6 +415,46 @@ demoControllers.controller('SignupController', ['$scope', '$rootScope', '$locati
 
 }]);
 
+demoControllers.controller('NotificationController', ['$scope', '$rootScope', '$location', '$window', 'Changelogs', 'Users', function($scope, $rootScope, $location, $window, Changelogs, Users) {
+	$scope.user = {};
+	$scope.logged = false;
+	$scope.artistLog = Array();
+	var d = new Date();
+	d.setDate(d.getDate() - 1);
+
+	loadUser($rootScope, $scope, $window);
+
+	console.log(d);
+
+	Changelogs.getOneDayInfo(d, function(data){
+		for (var i = 0; i < data.length; i++) {
+			if ($scope.user.favorites.indexOf(data[i].modelId && data[i].userId !== $scope.user._id)) {
+				$scope.artistLog.push(data[i]);
+			}
+		}
+
+	})
+
+
+
+
+	
+	// $scope.signup = function() {
+	// 	Users.signup($scope.user, function(data){
+	// 		$rootScope.user = data.user;
+	// 		$location.url('/#/home');
+	// 	});
+	// };	
+	
+	$(document).ready(function (){
+		$('footer').css('display', 'none');
+		$("nav").css('display', 'none');
+		$('body').addClass('full-background');
+	});
+
+}]);
+
+
 function loadUser($rootScope, $scope, $window) {
 	if($rootScope.user !== undefined) {
 		$scope.logged = true;
@@ -426,6 +466,8 @@ function loadUser($rootScope, $scope, $window) {
 		return false;
 	}
 }
+
+
 
 function initNavbar() {
 	$('body').removeClass('full-background');

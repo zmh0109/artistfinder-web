@@ -116,6 +116,11 @@ angular.module('demoServices', [])
                 $http.get(baseUrl+'/changelogs').success(function(data){
                     callback(data.data.length);
                 });
+            },
+            getOneDayInfo: function(date, callback){
+                $http.get(baseUrl + '/changelogs?where={\"date\":{\"$gte\":\"' + date + '\"}}').success(function(data){
+                    callback(data.data);
+                });
             }
         }
     })
