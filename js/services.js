@@ -1,5 +1,5 @@
 //var baseUrl = "http://localhost:4000/api";
-var baseUrl = "https://sleepy-hamlet-6905.herokuapp.com/api/";
+var baseUrl = "https://sleepy-hamlet-6905.herokuapp.com/api";
 
 angular.module('demoServices', [])
     .factory('Artists', function($http, $window){
