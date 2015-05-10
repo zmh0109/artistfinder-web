@@ -10,7 +10,7 @@ angular.module('demoServices', [])
                 });
             },
             getRecent: function(n, callback){
-                $http.get(baseUrl+'/changelogs?where={\"operation\": \"post\", \"model\": \"artist\"}&limit='+n.toString()).success(function(data){
+                $http.get(baseUrl+'/changelogs?where={\"operation\": \"post\", \"model\": \"artist\"}&sort={\"_id\":-1}&limit='+n.toString()).success(function(data){
                     callback(data);
                 });
             },
@@ -71,12 +71,22 @@ angular.module('demoServices', [])
             },
             signup: function(user, callback) {
                 $http.post(baseUrl+'/signup', $.param(user)).success(function(data){
-                    callback(data);  
-                }); 
+                    console.log("IS OK");
+                    console.log(data);
+                    callback(data);
+                })
+                .error(function(data) {
+                    console.log("IS ERROR");
+                    console.log(data);
+                    callback(data);
+                });  
             },
             signin: function(user, callback) {
                 $http.post(baseUrl+'/signin', $.param(user)).success(function(data){
                     callback(data);  
+                })
+                .error(function(data) {
+                    callback(data);
                 }); 
             }
         }
