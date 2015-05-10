@@ -9,10 +9,12 @@ demoControllers.controller('MainController', ['$scope', '$rootScope', 'Artists',
 	$scope.favorites = Array();
    	Artists.getTop(9, function(data){
    		$scope.top = data.data;
+        $('#circle').css('display','none');
    	});
 	
 	Artists.get(function (data) {
 		$scope.artists = data.data;
+
 	});
 	
    	Artists.getRecent(9, function(data){
@@ -21,6 +23,7 @@ demoControllers.controller('MainController', ['$scope', '$rootScope', 'Artists',
    				$scope.recent.push(artist.data);
    			});
    		}
+
    	});
 	
 	if(loadUser($rootScope, $scope, $window)) {
@@ -29,10 +32,12 @@ demoControllers.controller('MainController', ['$scope', '$rootScope', 'Artists',
    				$scope.favorites.push(artist.data);
    			});
 		}
+
 	}
 	 
 	$(document).ready(function (){
 		initNavbar();
+
 	});
 }]);
 
@@ -48,6 +53,7 @@ demoControllers.controller('SettingsController', ['$scope', '$rootScope', '$rout
 	
 	Artists.get(function (data) {
 		$scope.artists = data.data;
+
 	});
 	
 	Changelogs.getCount(function (data) {
@@ -77,13 +83,23 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$ro
 	$scope.user = {};
 	$scope.logged = false;
 	$scope.artists = {};
+	$scope.isFavorite = false;
 	
 	Artists.get(function (data) {
 		$scope.artists = data.data;
+        $('#circle').css('display','none');
 	});
 	
 	Artists.getById($scope.ID, function(data) {
 		$scope.artist = data.data;
+		
+		if (loadUser($rootScope, $scope, $window)) {
+			for (var i = 0; i < $scope.user.favorites.length; i++) {
+				if ($scope.user.favorites[i] === $scope.artist._id) {
+					$scope.isFavorite = true;
+				}
+			}
+		}
 		
 		if(data.data.isBand) {
 			for (var i = 0; i < data.data.members.length; i++) {
@@ -93,7 +109,6 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$ro
 			}
 		}	
 	});
-	
 	
 	loadUser($rootScope, $scope, $window);
 	
@@ -207,6 +222,7 @@ demoControllers.controller('ArtistEditController', ['$scope', '$rootScope', '$ro
 
 	$(document).ready(function (){
 		initNavbar();
+
 	});
 }]);
 
@@ -250,6 +266,7 @@ demoControllers.controller('AlbumInfoController', ['$scope', '$rootScope', '$rou
 	
 	Artists.get(function (data) {
 		$scope.artists = data.data;
+        $('#circle').css('display','none');
 	});
 	
 	Albums.getById($scope.id, function(data) {
@@ -374,18 +391,24 @@ demoControllers.controller('SigninController', ['$scope', '$routeParams', '$root
 		console.log("NOT HERE :(");
 	}
 	$scope.signin = function() {
+
 		Users.signin($scope.user, function(data){
 			$rootScope.user = data.user;
 			$window.location.href = redirect;
 			$location.url(redirect);
 		});
+        $('#circle').addClass('active');
+
 	};	
 	
 	$(document).ready(function (){
 		$('footer').css('display', 'none');
 		$("nav").css('display', 'none');
 		$('body').addClass('full-background');
+
+
 	});
+
 
 }]);
 
@@ -405,6 +428,7 @@ demoControllers.controller('SignupController', ['$scope', '$rootScope', '$locati
 			$rootScope.user = data.user;
 			$location.url('/#/home');
 		});
+        $('#circle').addClass('active');
 	};	
 	
 	$(document).ready(function (){
@@ -461,4 +485,5 @@ function initNavbar() {
 	$(".button-collapse").sideNav({
 		closeOnClick: true
 	});
+
 }
