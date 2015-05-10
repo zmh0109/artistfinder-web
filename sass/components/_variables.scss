@@ -1,11 +1,11 @@
 /*** Colors ***/
-$primary-color: color("brown", "darken-4") !default;
-$primary-color-light: lighten($primary-color, 15%) !default;
-$primary-color-dark: darken($primary-color, 15%) !default;
+$primary-color: color("grey", "darken-4") !default;
+$primary-color-light: lighten($primary-color, 55%) !default;
+$primary-color-dark: darken($primary-color, 55%) !default;
 
-$secondary-color: color("light-blue", "base") !default;
-$success-color: color("green", "base") !default;
-$error-color: color("red", "darken-1") !default;
+$secondary-color: color("light-blue", "darken-3") !default;
+$success-color: color("light-blue", "darken-3") !default;
+$error-color: color("pink", "darken-1") !default;
 $link-color: color("blue", "darken-3") !default;
 
 /*** Badges ***/
