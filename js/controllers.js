@@ -91,12 +91,7 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$ro
 	   				$scope.members.push(artist.data);
 	   			});
 			}
-		}
-		
-		
-	
-	
-		
+		}	
 	});
 	
 	
@@ -116,10 +111,8 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$ro
 			Artists.update($scope.artist, function(){
 			});
 		});
-		
 	};
-	
-	
+
 	
 	$scope.remove_favorite = function() {
 		$scope.user.favorites.pop($scope.ID);
@@ -135,9 +128,7 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$ro
 			Artists.update($scope.artist, function(){
 			});
 		});
-		
 	};
-	
 	
 	Albums.getByArtist($scope.ID, function(albums) {
 		$scope.albums = albums.data;
