@@ -48,7 +48,7 @@ demoControllers.controller('SettingsController', ['$scope', '$rootScope', '$rout
 	$scope.totalContributions = {};
 	
 	if(!loadUser($rootScope, $scope, $window)) {
-		$window.location.href = '/#/signin?redirect=' + encodeURIComponent('/#/user/settings/' + $routeParams.id);
+		$window.location.href = '/#/signin?redirect=' + encodeURIComponent('/#/user/settings/');
 	}
 	
 	Artists.get(function (data) {
@@ -163,7 +163,7 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$ro
 }]);
 
 demoControllers.controller('ArtistEditController', ['$scope', '$rootScope', '$routeParams', '$window', '$route', 'Artists', function($scope, $rootScope, $routeParams, $window, $route, Artists) {
-	$scope.artist = "";
+	$scope.artist = {};
 	$scope.members = Array();
 	$scope.id = $routeParams.id;
 	$scope.user = {};
@@ -205,18 +205,16 @@ demoControllers.controller('ArtistEditController', ['$scope', '$rootScope', '$ro
 	};
 	
 	$scope.add_member = function(memberId){
-		$scope.artist.userId = $scope.user._id;
 		$scope.artist.members.push(memberId);
-		Artists.update($scope.artist, function(){
-			$route.reload();
+		Artists.getById(memberId, function(artist) {
+			$scope.members.push(artist.data);
 		});
 	};
 	
 	$scope.remove_member = function(memberId){
-		$scope.artist.userId = $scope.user._id;
 		$scope.artist.members.pop(memberId);
-		Artists.update($scope.artist, function(){
-			$route.reload();
+		Artists.getById(memberId, function(artist) {
+			$scope.members.pop(artist.data);
 		});
 	};
 
@@ -229,10 +227,12 @@ demoControllers.controller('ArtistEditController', ['$scope', '$rootScope', '$ro
 
 demoControllers.controller('ArtistNewController', ['$scope', '$rootScope', '$window', 'Artists', function($scope, $rootScope, $window, Artists) {
 	$scope.artist = {};
+	$scope.artist.members = Array();
 	$scope.user = {};
 	$scope.logged = false;
 	$scope.artists = {};
 	$scope.artist.isBand = false;
+	$scope.members = Array();
 	
 	Artists.get(function (data) {
 		$scope.artists = data.data;
@@ -246,6 +246,20 @@ demoControllers.controller('ArtistNewController', ['$scope', '$rootScope', '$win
 		$scope.artist.userId = $scope.user._id;
 		Artists.post($scope.artist,  function(data){
 			$window.location.href = '/#/artists/info/' + data.data._id;
+		});
+	};
+	
+	$scope.add_member = function(memberId){
+		$scope.artist.members.push(memberId);
+		Artists.getById(memberId, function(artist) {
+			$scope.members.push(artist.data);
+		});
+	};
+	
+	$scope.remove_member = function(memberId){
+		$scope.artist.members.pop(memberId);
+		Artists.getById(memberId, function(artist) {
+			$scope.members.pop(artist.data);
 		});
 	};
 	
@@ -316,19 +330,11 @@ demoControllers.controller('AlbumEditController', ['$scope', '$rootScope', '$rou
 	};
 	
 	$scope.add_track = function(track){
-		$scope.album.userId = $scope.user._id;
 		$scope.album.tracks.push(track);
-		Albums.update($scope.album, function(){
-			$window.location.href = '/#/albums/edit/' + $scope.album._id;
-		});
 	};
 	
 	$scope.remove_track = function(track){
-		$scope.album.userId = $scope.user._id;
 		$scope.album.tracks.pop(track);
-		Albums.update($scope.album,  function(){
-			$window.location.href = '/#/albums/edit/' + $scope.album._id;
-		});
 	};
 	
 	Albums.getById($scope.id, function(data) {
@@ -341,16 +347,12 @@ demoControllers.controller('AlbumEditController', ['$scope', '$rootScope', '$rou
 	
 	$(document).ready(function (){
 		initNavbar();
-		$('.datepicker').pickadate({
-			selectMonths: true, // Creates a dropdown to control month
-			selectYears: 116, // Creates a dropdown of 15 years to control year
-			max: new Date()
-		});
 	});
 }]);
 
 demoControllers.controller('AlbumNewController', ['$scope', '$rootScope', '$window', 'Albums', 'Artists', function($scope, $rootScope, $window, Albums, Artists) {
 	$scope.album = {};
+	$scope.album.tracks = Array();
 	$scope.user = {};
 	$scope.logged = false;
 	$scope.artists = {};
@@ -370,13 +372,16 @@ demoControllers.controller('AlbumNewController', ['$scope', '$rootScope', '$wind
 		});
 	};
 	
+	$scope.add_track = function(track){
+		$scope.album.tracks.push(track);
+	};
+	
+	$scope.remove_track = function(track){
+		$scope.album.tracks.pop(track);
+	};
+	
 	$(document).ready(function (){
 		initNavbar();
-		$('.datepicker').pickadate({
-			selectMonths: true, // Creates a dropdown to control month
-			selectYears: 116, // Creates a dropdown of 15 years to control year
-			max: new Date()
-		});
 	});
 }]);
 
@@ -390,26 +395,27 @@ demoControllers.controller('SigninController', ['$scope', '$routeParams', '$root
 	else {
 		console.log("NOT HERE :(");
 	}
+	
 	$scope.signin = function() {
-
 		Users.signin($scope.user, function(data){
-			$rootScope.user = data.user;
-			$window.location.href = redirect;
-			$location.url(redirect);
+			if (data !== 'Unauthorized') {
+				$rootScope.user = data.user;
+				$window.location.href = redirect;
+				$location.url(redirect);
+			}
+			else {
+				Materialize.toast('Wrong e-mail/password. Try again', 4000);
+				$('#circle').css('display', 'none');
+			}
 		});
         $('#circle').addClass('active');
-
 	};	
 	
 	$(document).ready(function (){
 		$('footer').css('display', 'none');
 		$("nav").css('display', 'none');
 		$('body').addClass('full-background');
-
-
 	});
-
-
 }]);
 
 demoControllers.controller('SignoutController', ['$scope', '$routeParams', '$rootScope', '$location', '$window', function($scope, $routeParams, $rootScope, $location, $window, Users) {	
@@ -425,11 +431,20 @@ demoControllers.controller('SignupController', ['$scope', '$rootScope', '$locati
 	
 	$scope.signup = function() {
 		Users.signup($scope.user, function(data){
-			$rootScope.user = data.user;
-			$location.url('/#/home');
+			if (data !== 'Unauthorized') {
+				$rootScope.user = data.user;
+				$location.url('/#/home');
+			}
+			else {
+				Materialize.toast('Email already in use', 4000);
+				$('#circle').css('display', 'none');
+			}
 		});
         $('#circle').addClass('active');
 	};	
+	
+	
+	
 	
 	$(document).ready(function (){
 		$('footer').css('display', 'none');
@@ -439,41 +454,61 @@ demoControllers.controller('SignupController', ['$scope', '$rootScope', '$locati
 
 }]);
 
-demoControllers.controller('NotificationController', ['$scope', '$rootScope', '$location', '$window', 'Changelogs', 'Users', function($scope, $rootScope, $location, $window, Changelogs, Users) {
+demoControllers.controller('NotificationController', ['$scope', '$rootScope', '$location', '$window', 'Changelogs', 'Users', 'Artists', 'Albums', function($scope, $rootScope, $location, $window, Changelogs, Users, Artists, Albums) {
 	$scope.user = {};
 	$scope.logged = false;
+	$scope.artistHelper = Array();
+	$scope.albumHelper = Array();
 	$scope.artistLog = Array();
+	$scope.albumLog = Array();
 	var d = new Date();
 	d.setDate(d.getDate() - 1);
+	$scope.artists = {};
 
-	loadUser($rootScope, $scope, $window);
+	Artists.get(function (data) {
+		$scope.artists = data.data;
+	});
 
-	console.log(d);
+	if(!loadUser($rootScope, $scope, $window)) {
+		$window.location.href = '/#/signin?redirect=' + encodeURIComponent('/#/notification');
+	}
 
 	Changelogs.getOneDayInfo(d, function(data){
 		for (var i = 0; i < data.length; i++) {
-			if ($scope.user.favorites.indexOf(data[i].modelId && data[i].userId !== $scope.user._id)) {
-				$scope.artistLog.push(data[i]);
+			if (data[i].userId !== $scope.user._id) {
+				if (data[i].model === 'artist') {
+					if ($scope.user.favorites.indexOf(data[i].modelId) !== -1 && $scope.artistHelper.indexOf(data[i].modelId) === -1) {
+					   $scope.artistHelper.push(data[i].modelId);
+				   	}
+				}
+				else {
+					if ($scope.albumHelper.indexOf(data[i].modelId) === -1) {
+					   $scope.albumHelper.push(data[i].modelId);
+				   	}
+				}
 			}
 		}
+		
+		for (var i = 0; i < $scope.artistHelper.length; i++) {
+			Artists.getById($scope.artistHelper[i], function(artist) {
+				   $scope.artistLog.push(artist.data);
+			});
+		}
+		
+		for (var i = 0; i < $scope.albumHelper.length; i++) {
+			Albums.getById($scope.albumHelper[i], function(album) {
+				if ($scope.user.favorites.indexOf(album.data.artistId) !== -1) {
+					$scope.albumLog.push(album.data);	
+				}
+			});
+		}
+		
+		$('#circle').css('display', 'none');
+	});
 
-	})
-
-
-
-
-	
-	// $scope.signup = function() {
-	// 	Users.signup($scope.user, function(data){
-	// 		$rootScope.user = data.user;
-	// 		$location.url('/#/home');
-	// 	});
-	// };	
 	
 	$(document).ready(function (){
-		$('footer').css('display', 'none');
-		$("nav").css('display', 'none');
-		$('body').addClass('full-background');
+		initNavbar();
 	});
 
 }]);
@@ -527,5 +562,4 @@ function initNavbar() {
 	$(".button-collapse").sideNav({
 		closeOnClick: true
 	});
-
 }

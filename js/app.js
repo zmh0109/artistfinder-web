@@ -32,7 +32,7 @@ demoApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $ht
 	 templateUrl: 'partials/albumNew.html',
 	 controller: 'AlbumNewController'
 	}).
-	when('/user/settings/:id', {
+	when('/user/settings', {
 	 templateUrl: 'partials/settings.html',
 	 controller: 'SettingsController'
 	}).
