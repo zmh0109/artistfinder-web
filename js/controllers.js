@@ -69,7 +69,7 @@ demoControllers.controller('SettingsController', ['$scope', '$rootScope', '$rout
 	});
 }]);
 
-demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$routeParams', '$window', 'Artists', 'Albums', 'Users', function($scope, $rootScope, $routeParams, $window, Artists, Albums, Users) {
+demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$routeParams', '$window', '$route', 'Artists', 'Albums', 'Users', function($scope, $rootScope, $routeParams, $window, $route, Artists, Albums, Users) {
 	$scope.artist = "";
 	$scope.members = Array();
 	$scope.albums = null;
@@ -77,7 +77,6 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$ro
 	$scope.user = {};
 	$scope.logged = false;
 	$scope.artists = {};
-	$scope.isFavorite = false;
 	
 	Artists.get(function (data) {
 		$scope.artists = data.data;
@@ -86,40 +85,50 @@ demoControllers.controller('ArtistInfoController', ['$scope', '$rootScope', '$ro
 	Artists.getById($scope.ID, function(data) {
 		$scope.artist = data.data;
 		
-		if (loadUser($rootScope, $scope, $window)) {
-			for (var i = 0; i < $scope.user.favorites.length; i++) {
-				if ($scope.user.favorites[i] === $scope.artist._id) {
-					$scope.isFavorite = true;
-				}
-			}
-		}
-		
 		if(data.data.isBand) {
 			for (var i = 0; i < data.data.members.length; i++) {
 				Artists.getById(data.data.members[i], function(artist) {
 	   				$scope.members.push(artist.data);
 	   			});
 			}
-		}
-		
+		}	
 	});
 	
 	
+	loadUser($rootScope, $scope, $window);
 	
+	$scope.add_favorite = function() {
+		$scope.user.favorites.push($scope.ID);
+		Users.update($scope.user, function(){
+			if ($scope.artist.favCount === undefined) {
+				$scope.artist.favCount = 1;
+			}
+			else {
+				var prev = Number($scope.artist.favCount);
+				$scope.artist.favCount = prev + 1;
+			}
+			$scope.artist.userId = $scope.user._id;
+			Artists.update($scope.artist, function(){
+			});
+		});
+	};
+
 	
-//	$scope.add_favorite = function() {
-//		Users.update($scope.user, function(){});
-//	};
-//	
-//	$scope.add_member = function(memberId){
-//		$scope.artist.userId = $scope.user._id;
-//		$scope.artist.members.push(memberId);
-//		Artists.update($scope.artist, $scope.user._id,  function(){
-//			$route.reload();
-//		});
-//	};
-//	
-	
+	$scope.remove_favorite = function() {
+		$scope.user.favorites.pop($scope.ID);
+		Users.update($scope.user, function(){
+			if ($scope.artist.favCount === undefined) {
+				$scope.artist.favCount = 0;
+			}
+			else {
+				var prev = Number($scope.artist.favCount);
+				$scope.artist.favCount = prev - 1;
+			}
+			$scope.artist.userId = $scope.user._id;
+			Artists.update($scope.artist, function(){
+			});
+		});
+	};
 	
 	Albums.getByArtist($scope.ID, function(albums) {
 		$scope.albums = albums.data;
@@ -183,7 +192,7 @@ demoControllers.controller('ArtistEditController', ['$scope', '$rootScope', '$ro
 	$scope.add_member = function(memberId){
 		$scope.artist.userId = $scope.user._id;
 		$scope.artist.members.push(memberId);
-		Artists.update($scope.artist, $scope.user._id,  function(){
+		Artists.update($scope.artist, function(){
 			$route.reload();
 		});
 	};
@@ -191,7 +200,7 @@ demoControllers.controller('ArtistEditController', ['$scope', '$rootScope', '$ro
 	$scope.remove_member = function(memberId){
 		$scope.artist.userId = $scope.user._id;
 		$scope.artist.members.pop(memberId);
-		Artists.update($scope.artist, $scope.user._id,  function(){
+		Artists.update($scope.artist, function(){
 			$route.reload();
 		});
 	};

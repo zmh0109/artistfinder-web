@@ -60,29 +60,29 @@
 
 			<div class="clear hide-on-med-and-up"><h4 class="center-align">{{artist.name}}</h4></div>
 			<span ng-show="logged === true">
-				<a ng-click="add_favorite()" ng-show="isFavorite === true" href="#!" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-star"></i> Remove as favorite</a>
-				<a ng-click="add_favorite()" ng-show="isFavorite === true" href="#!" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-star"></i></a>
+				<a ng-click="remove_favorite()" ng-show="user.favorites.indexOf(artist._id) !== -1" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-star"></i> Remove as favorite</a>
+				<a ng-click="remove_favorite()" ng-show="user.favorites.indexOf(artist._id) !== -1" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-star"></i></a>
 					
-				<a ng-click="remove_favorite()" ng-show="isFavorite === false" href="#!" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-star-o"></i> Add as favorite</a>
-				<a ng-click="remove_favorite()" ng-show="isFavorite === false" href="#!" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-star-o"></i></a>
+				<a ng-click="add_favorite()" ng-show="user.favorites.indexOf(artist._id) === -1" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-star-o"></i> Add as favorite</a>
+				<a ng-click="add_favorite()" ng-show="user.favorites.indexOf(artist._id) === -1" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-star-o"></i></a>
 			</span>
-			<a ng-class="artist.twitter === '' ? 'disabled' : ''" href="http://twitter.com/{{artist.twitter}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-twitter"></i> Twitter</a>
-			<a ng-class="artist.twitter === '' ? 'disabled' : ''" href="http://twitter.com/{{artist.twitter}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-twitter"></i></a>
+			<a ng-class="(artist.twitter === '' || artist.twitter === undefined) ? 'disabled' : ''" href="http://twitter.com/{{artist.twitter}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-twitter"></i> Twitter</a>
+			<a ng-class="(artist.twitter === '' || artist.twitter === undefined) ? 'disabled' : ''" href="http://twitter.com/{{artist.twitter}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-twitter"></i></a>
 			
-			<a ng-class="artist.facebook === '' ? 'disabled' : ''" href="http://facebook.com/{{artist.facebook}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-facebook-official"></i> Facebook</a>
-			<a ng-class="artist.facebook === '' ? 'disabled' : ''" href="http://facebook.com/{{artist.facebook}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-facebook-official"></i></a>
+			<a ng-class="(artist.facebook === '' || artist.facebook === undefined) ? 'disabled' : ''" href="http://facebook.com/{{artist.facebook}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-facebook-official"></i> Facebook</a>
+			<a ng-class="(artist.facebook === '' || artist.facebook === undefined) ? 'disabled' : ''" href="http://facebook.com/{{artist.facebook}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-facebook-official"></i></a>
 				
-			<a ng-class="artist.instagram === '' ? 'disabled' : ''" href="http://instagram.com/{{artist.instagram}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-instagram"></i> Instagram</a>
-			<a ng-class="artist.instagram === '' ? 'disabled' : ''" href="http://instagram.com/{{artist.instagram}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-instagram"></i></a>
+			<a ng-class="(artist.instagram === '' || artist.instagram === undefined) ? 'disabled' : ''" href="http://instagram.com/{{artist.instagram}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-instagram"></i> Instagram</a>
+			<a ng-class="(artist.instagram === '' || artist.instagram === undefined) ? 'disabled' : ''" href="http://instagram.com/{{artist.instagram}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-instagram"></i></a>
 					
-			<a ng-class="artist.spotify === '' ? 'disabled' : ''" href="http://play.spotify.com/artist/{{artist.spotify}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-spotify"></i> Listen on Spotify</a>
-			<a ng-class="artist.spotify === '' ? 'disabled' : ''" href="http://play.spotify.com/artist/{{artist.spotify}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-spotify"></i></a>
+			<a ng-class="(artist.spotify === '' || artist.spotify === undefined) ? 'disabled' : ''" href="http://play.spotify.com/artist/{{artist.spotify}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-spotify"></i> Listen on Spotify</a>
+			<a ng-class="(artist.spotify === '' || artist.spotify === undefined) ? 'disabled' : ''" href="http://play.spotify.com/artist/{{artist.spotify}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-spotify"></i></a>
 					
-			<a ng-class="artist.lastfm === '' ? 'disabled' : ''" href="{{artist.lastfm}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-lastfm"></i> Last.fm page</a>
-			<a ng-class="artist.lastfm === '' ? 'disabled' : ''" href="{{artist.lastfm}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-lastfm"></i></a>
+			<a ng-class="(artist.lastfm === '' || artist.lastfm === undefined) ? 'disabled' : ''" href="{{artist.lastfm}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-lastfm"></i> Last.fm page</a>
+			<a ng-class="(artist.lastfm === '' || artist.lastfm === undefined) ? 'disabled' : ''" href="{{artist.lastfm}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-lastfm"></i></a>
 					
-			<a ng-class="artist.website === '' ? 'disabled' : ''" href="{{artist.website}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-external-link"></i> Official website</a>
-			<a ng-class="artist.website === '' ? 'disabled' : ''" href="{{artist.website}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-external-link"></i></a>
+			<a ng-class="(artist.website === '' || artist.website === undefined) ? 'disabled' : ''" href="{{artist.website}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-external-link"></i> Official website</a>
+			<a ng-class="(artist.website === '' || artist.website === undefined) ? 'disabled' : ''" href="{{artist.website}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-external-link"></i></a>
 					
 			<a href="#/artists/edit/{{artist._id}}" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-pencil-square-o"></i> Edit artist</a>
 			<a href="#/artists/edit/{{artist._id}}" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-pencil-square-o"></i></a>
