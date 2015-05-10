@@ -1,7 +1,7 @@
 <ul id="user-dropdown" class="dropdown-content">
-
-  <li><a href="#/user/settings/{{user._id}}">Settings</a></li>
-  <li><a href="#/signout">Sign out</a></li>
+	<li ng-show="logged === true"><a href="#/notification">Updates</a></li>
+	<li><a href="#/user/settings">Settings</a></li>
+	<li><a href="#/signout">Sign out</a></li>
 </ul>
 <div class="navbar-fixed">
 <nav>
@@ -29,7 +29,8 @@
                 <li ng-show="logged === true"><a href="" class="disabled">{{user.name}}<i class="mdi-action-account-circle right"></i></a></li>
 				<li ng-show="logged === true"><a href="#/artists/new">Add artist</a></li>
 			    <li ng-show="logged === true"><a href="#/albums/new">Add album</a></li>
-			    <li ng-show="logged === true"><a href="#/user/settings/user:id">Settings</a></li>
+				<li ng-show="logged === true"><a href="#/notification">Updates</a></li>
+			    <li ng-show="logged === true"><a href="#/user/settings">Settings</a></li>
 			    <li ng-show="logged === true"><a href="#/signout">Sign out</a></li>
 				<li ng-show="logged === false"><a href="#/signin">Sign in</a></li>
 				<li ng-show="logged === false"><a href="#/signup">Sign up</a></li>
@@ -42,7 +43,7 @@
 	<div ng-repeat="a in artists | filter: search | limitTo:10">
 		<a href="#/artists/info/{{a._id}}" class="search-result">
 			<div class="card">
-				<div class="card-content"><h5 class="truncate"><i ng-show="a.isBand === false" class="fa fa-user"></i><i ng-show="a.isBand === true" class="fa fa-users"></i>  {{a.name}}</h5></div>
+				<div class="card-content"><h5 class="truncate"><i ng-show="a.isBand === false" class="fa fa-user padding-right"></i><i ng-show="a.isBand === true" class="fa fa-users padding-right"></i> {{a.name}}</h5></div>
 			</div>
 		</a>
 	</div>
@@ -55,9 +56,9 @@
     <div class="divider"></div>
     <br>
     <div class="row">
-        <form class="col s6">
+        <form class="col s12 m6">
             <h5>
-                <i class="mdi-action-settings"></i>Settings</h5>
+                <i class="mdi-action-settings padding-right"></i>Settings</h5>
             <br>
             <div class="row">
                 <div class="input-field col s12">
@@ -84,15 +85,14 @@
                 <button ng-click="delete_user()" class="col s8 offset-s2 btn waves-effect waves-light red darken-2">Delete account</button>
             </div>
         </form>
-        <div class="col s6">
-            <h5><i class="mdi-editor-insert-chart"></i>Your stats</h5>
+        <div class="col s12 m6">
+            <h5><i class="mdi-editor-insert-chart padding-right"></i>Your stats</h5>
             <br>
-            <p><i class="fa fa-calendar-o"></i> You joined Artist Finder on {{user.signupDate | date: 'mediumDate'}}</p>
+            <p><i class="fa fa-calendar-o padding-right"></i> You joined Artist Finder on {{user.signupDate | date: 'mediumDate'}}</p>
             <br>
-            <p><i class="fa fa-line-chart"></i> You helped us contributing on {{user.collaborations.length}} articles. <span ng-show="user.collaborations.length !== 0"> This is about {{user.collaborations.legth * 100 / totalContributions}}% of all the data collaborations!</span></p>
+            <p><i class="fa fa-line-chart padding-right"></i> You helped us contributing {{user.collaborations.length}} different times.  Artist Finder has a total of {{totalContributions}} contributions so far!</p>
             <br>
-            <p><i class="fa fa-star"></i> You have {{user.favorites.length}} favorite artists.</p>    
+            <p><i class="fa fa-star padding-right"></i> You have {{user.favorites.length}} favorite artists.</p>    
         </div>
     </div>
-    {{user}}
 </section>

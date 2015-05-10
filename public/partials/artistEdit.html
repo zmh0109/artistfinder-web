@@ -1,7 +1,7 @@
 <ul id="user-dropdown" class="dropdown-content">
-
-  <li><a href="#/user/settings/{{user._id}}">Settings</a></li>
-  <li><a href="#/signout">Sign out</a></li>
+	<li ng-show="logged === true"><a href="#/notification">Updates</a></li>
+	<li><a href="#/user/settings">Settings</a></li>
+	<li><a href="#/signout">Sign out</a></li>
 </ul>
 <div class="navbar-fixed">
 <nav>
@@ -29,7 +29,8 @@
                 <li ng-show="logged === true"><a href="" class="disabled">{{user.name}}<i class="mdi-action-account-circle right"></i></a></li>
 				<li ng-show="logged === true"><a href="#/artists/new">Add artist</a></li>
 			    <li ng-show="logged === true"><a href="#/albums/new">Add album</a></li>
-			    <li ng-show="logged === true"><a href="#/user/settings/user:id">Settings</a></li>
+				<li ng-show="logged === true"><a href="#/notification">Updates</a></li>
+			    <li ng-show="logged === true"><a href="#/user/settings">Settings</a></li>
 			    <li ng-show="logged === true"><a href="#/signout">Sign out</a></li>
 				<li ng-show="logged === false"><a href="#/signin">Sign in</a></li>
 				<li ng-show="logged === false"><a href="#/signup">Sign up</a></li>
@@ -42,7 +43,7 @@
 	<div ng-repeat="a in artists | filter: search | limitTo:10">
 		<a href="#/artists/info/{{a._id}}" class="search-result">
 			<div class="card">
-				<div class="card-content"><h5 class="truncate"><i ng-show="a.isBand === false" class="fa fa-user"></i><i ng-show="a.isBand === true" class="fa fa-users"></i>  {{a.name}}</h5></div>
+				<div class="card-content"><h5 class="truncate"><i ng-show="a.isBand === false" class="fa fa-user padding-right"></i><i ng-show="a.isBand === true" class="fa fa-users padding-right"></i> {{a.name}}</h5></div>
 			</div>
 		</a>
 	</div>
@@ -98,10 +99,10 @@
 					<input ng-model="artist.website" type="url" id="website" validate>
 					<label for="website" class="active">Official website</label>
 				</div>
-				<div class="row">
+				<div class="row hide-on-small-only">
 					<button ng-click="update_artist()" class="col s8 offset-s2 btn waves-effect waves-light">Save</button>
 				</div>
-				<div class="row">
+				<div class="row hide-on-small-only">
 					<button ng-click="delete_artist()" class="col s8 offset-s2 btn waves-effect waves-light red darken-2">Delete Artist</button>
 				</div>
 				
@@ -134,13 +135,21 @@
 					<br></br>
 					<ul class="collection with-header col s10 offset-s1">
 						<li class="collection-header"><h5>Members</h5></li>
-						<li ng-repeat="member in members" class="collection-item"><div>{{member.name}}<a href="#!" ng-click="remove_member(member._id)" class="secondary-content"><i class="mdi-action-highlight-remove red-text darken-2"></i></a></div></li>
+						<li ng-repeat="member in members" class="collection-item"><div>{{member.name}}<a href="" ng-click="remove_member(member._id)" class="secondary-content"><i class="mdi-action-highlight-remove red-text darken-2"></i></a></div></li>
 						<li class="collection-item"><div>
 							<input placeholder="Paste Artist Finder ID of band member here" type="text" ng-model="newMember">
-								<a href="#!" ng-click="add_member(newMember)" class="btn waves-effect waves-light">Add member</a>
+								<button ng-click="add_member(newMember)" class="btn waves-effect waves-light">Add member</button>
 									</div></li>
 					</ul>					
 				</div>
+			</div>
+			
+			<div class="clear"><br></div>
+			<div class="row hide-on-med-and-up">
+				<button ng-click="update_artist()" class="col s8 offset-s2 btn waves-effect waves-light">Save</button>
+			</div>
+			<div class="row hide-on-med-and-up">
+				<button ng-click="delete_artist()" class="col s8 offset-s2 btn waves-effect waves-light red darken-2">Delete Artist</button>
 			</div>
 		</div>	
 	</div>

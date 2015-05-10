@@ -1,7 +1,7 @@
 <ul id="user-dropdown" class="dropdown-content">
-
-  <li><a href="#/user/settings/{{user._id}}">Settings</a></li>
-  <li><a href="#/signout">Sign out</a></li>
+	<li ng-show="logged === true"><a href="#/notification">Updates</a></li>
+	<li><a href="#/user/settings">Settings</a></li>
+	<li><a href="#/signout">Sign out</a></li>
 </ul>
 <div class="navbar-fixed">
 <nav>
@@ -29,7 +29,8 @@
                 <li ng-show="logged === true"><a href="" class="disabled">{{user.name}}<i class="mdi-action-account-circle right"></i></a></li>
 				<li ng-show="logged === true"><a href="#/artists/new">Add artist</a></li>
 			    <li ng-show="logged === true"><a href="#/albums/new">Add album</a></li>
-			    <li ng-show="logged === true"><a href="#/user/settings/user:id">Settings</a></li>
+				<li ng-show="logged === true"><a href="#/notification">Updates</a></li>
+			    <li ng-show="logged === true"><a href="#/user/settings">Settings</a></li>
 			    <li ng-show="logged === true"><a href="#/signout">Sign out</a></li>
 				<li ng-show="logged === false"><a href="#/signin">Sign in</a></li>
 				<li ng-show="logged === false"><a href="#/signup">Sign up</a></li>
@@ -42,14 +43,14 @@
 	<div ng-repeat="a in artists | filter: search | limitTo:10">
 		<a href="#/artists/info/{{a._id}}" class="search-result">
 			<div class="card">
-				<div class="card-content"><h5 class="truncate"><i ng-show="a.isBand === false" class="fa fa-user"></i><i ng-show="a.isBand === true" class="fa fa-users"></i>  {{a.name}}</h5></div>
+				<div class="card-content"><h5 class="truncate"><i ng-show="a.isBand === false" class="fa fa-user padding-right"></i><i ng-show="a.isBand === true" class="fa fa-users padding-right"></i> {{a.name}}</h5></div>
 			</div>
 		</a>
 	</div>
 </div>
 <section>
 	<div class="row ">
-		<div id="side-nav" class="col s12 m3 card">
+		<div id="side-nav" class="col s12 m3">
 			<br>
 			<div id="artist-img" class="square bg circle" style="background-image: url('{{artist.image}}')">
 				<div class="content">
@@ -104,10 +105,6 @@
                     </div>
                 </div>
             </div>
-            <div class="right ">
-                <a href="#/artists/edit/{{artist._id}}" class="hide-on-med-only flow-text truncate  col s12 waves-effect "> <button class="waves-effect waves-light btn">Edit artist</button></a>
-                <a href="#/artists/edit/{{artist._id}}" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-pencil-square-o"></i></a>
-            </div >
             <br>
 			<h4 class="hide-on-small-only">{{artist.name}}</h4>
 
