@@ -1,12 +1,21 @@
 <section class="signup container">
 
+	<div class="row">
+    <div class="col s12 m4 offset-m4 center-align">
+      <br>
+    </div>
+  </div>
   <div class="row">
     <div class="col s12 m4 offset-m4 center-align">
       <a href="#/home"><img class="responsive-img" src="./data/images/logo1.png" alt="Artist Finder Logo"></a>
     </div>
   </div>
 
-  <form >
+
+  
+  <form>
+    
+
 	<div class="row">  
      <div class="input-field col m6 offset-m3 s10 offset-s1">
        <input ng-model="user.email" id="email" type="email" class="validate white-text" required autocomplete="off">
@@ -26,5 +35,16 @@
    </div>
    
  </form>
-
+    <div class="center-align" id="circle">
+        <div class="preloader-wrapper big  ">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
 </section>

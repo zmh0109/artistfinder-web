@@ -39,6 +39,7 @@
 </nav>
 </div>
 <div id="search-results" class="container">
+
 	<div ng-repeat="a in artists | filter: search | limitTo:10">
 		<a href="#/artists/info/{{a._id}}" class="search-result">
 			<div class="card">
@@ -47,9 +48,9 @@
 		</a>
 	</div>
 </div>
-<section class="container">
-	
-	<div ng-show="favorites.length > 0">
+<section class="container ">
+
+	<div ng-show="favorites.length > 0" >
 		<div class="section">
 			<h5>Your favorite artists</h5>
 			<p></p>
@@ -69,8 +70,19 @@
 			</section>
 		</div>
 	</div>
-	
-	
+
+    <div class="center-align" >
+        <div id="circle" class="preloader-wrapper big active ">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
 	<div class="section">
 		<h5>Top Artists</h5>
 		<p>The most followed artists at the moment</p>

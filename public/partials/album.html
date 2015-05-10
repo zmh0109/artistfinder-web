@@ -39,7 +39,19 @@
 </nav>
 </div>
 <div id="search-results" class="container">
-	<div ng-repeat="a in artists | filter: search | limitTo:10">
+    <div class="center-align" >
+        <div id="circle" class="preloader-wrapper big active ">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+	<div ng-repeat="a in artists | filter: search | limitTo:10" >
 		<a href="#/artists/info/{{a._id}}" class="search-result">
 			<div class="card">
 				<div class="card-content"><h5 class="truncate"><i ng-show="a.isBand === false" class="fa fa-user"></i><i ng-show="a.isBand === true" class="fa fa-users"></i>  {{a.name}}</h5></div>
@@ -58,7 +70,11 @@
 			
 			<br>
 			<div class="clear hide-on-med-and-up"><h4 class="center-align">{{album.name}}</h4></div>
-									
+			<div class="clear"><p class="center-align"><i class="fa fa-calendar-o"></i> {{album.releaseDate | date: 'mediumDate'}}</p></div>
+			
+			<a href="https://play.spotify.com/search/artist:{{artist.name}} album:{{album.name}}" target="_blank" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-spotify"></i> Listen on Spotify</a>
+			<a href="https://play.spotify.com/search/artist:{{artist.name}} album:{{album.name}}" target="_blank" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-spotify"></i></a>					
+			
 			<a href="#/albums/edit/{{album._id}}" class="hide-on-med-only flow-text truncate col s12 waves-effect"><i class="fa fa-2x fa-pencil-square-o"></i> Edit album</a>
 			<a href="#/albums/edit/{{album._id}}" class="hide-on-small-only hide-on-large-only center-align flow-text truncate col s12 waves-effect"><i class="fa fa-3x fa-pencil-square-o"></i></a>
 		</div>

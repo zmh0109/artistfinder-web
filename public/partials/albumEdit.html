@@ -80,6 +80,13 @@
 			</div>
 			
 			<div class="input-field col s10 offset-s1">
+				<datepicker>
+		        	<input ng-model="album.releaseDate" date-min-limit="1900/01/01" date-format="MM/dd/yyyy" type="text" id="date">
+		      	</datepicker>
+				 <label for="date" class="active">Album release date</label>
+			</div>
+			
+			<div class="input-field col s10 offset-s1">
 				<input ng-model="album.artistId" type="text" id="name" validate required>
 				<label for="name" class="active">Artist AFID</label>
 			</div>
