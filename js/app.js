@@ -52,6 +52,10 @@ demoApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $ht
 	 templateUrl: 'partials/signout.html',
 	 controller: 'SignoutController'
 	}).
+	when('/notification', {
+		templateUrl: 'partials/notification.html',
+		controller: 'NotificationController'
+	}).
 	otherwise({
 	 redirectTo: '/home'
 	});
