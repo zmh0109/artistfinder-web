@@ -1,0 +1,80 @@
+
+<div class="container">
+    <!--search bar-->
+    <nav class="orange">
+        <div class="nav-wrapper">
+            <form>
+                <div class="input-field">
+                    <input id="search" type="search" placeholder="Search for apartments" required ng-model="query">
+                    <label for="search"><i class="material-icons">search</i></label>
+                    <i class="material-icons">close</i>
+                </div>
+            </form>
+        </div>
+    </nav>
+
+    <br>
+         <!--selector for order-->
+        <div class="row">
+            <div class="col l3 offset-l6 s5">
+                <h5 class="right-align">Order By:</h5>
+            </div>
+            <div class="col l3 s7">
+
+                <select ng-model="order" class="browser-default">
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="-price">Price</option>
+                    <option value="-popularity">Popularity</option>
+                    <option value="name">Name</option>
+                </select>
+            </div>
+        </div>
+
+<div dir-paginate="apartment in apartments|orderBy:order|filter:query |itemsPerPage:5">
+
+    <div class="col s12 m7">
+        <!--card shown on desktops and tablets-->
+        <div class="card small horizontal hoverable hide-on-small-only">
+            <div class="card-image responsive-img">
+                <img src="data/images/{{apartment.image}}">
+            </div>
+            <div class="card-stacked">
+                <div class="card-content">
+                    <h5><a href="#/details/{{apartment.name}}" class="black-text">{{apartment.name}}</a></h5>
+                    <p>{{apartment.description}}</p>
+                </div>
+               <div class="card-action">
+                    <a><h3 class="right">${{apartment.price}}</h3></a>
+                </div>
+            </div>
+        </div>
+
+        <!--card show on mobile devices only-->
+        <div class="card small hide-on-med-and-up">
+            <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" src="data/images/{{apartment.image}}">
+            </div>
+            <div class="card-content">
+                <span class="card-title activator grey-text text-darken-4"><a href="#/details/{{apartment.name}}" class="black-text">{{apartment.name}}</a><i class="material-icons right">more_vert</i></span>
+                <p><h4 class="right orange-text">${{apartment.price}}</h4></p>
+            </div>
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4">{{apartment.name}}<i class="material-icons right">close</i></span>
+                <p>{{apartment.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <br>
+    <!-- pagination navigation-->
+    <div class="full-background">
+    <dir-pagination-controls
+
+            max-size="5"
+            direction-links="true"
+            boundary-links="true">
+    </dir-pagination-controls>
+        </div>
+</div>
+
+

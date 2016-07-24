@@ -1,0 +1,98 @@
+{
+    "apartments": [
+        {
+            "name": "The Pavilion on Berry",
+            "image": "image-1.jpg",
+            "price": 1520,
+            "popularity": 4,
+            "description": "University of Minnesota, Twin Cities Minneapolis, MN"
+        },
+        {           
+            "name": "Radius @15th",
+            "image": "image-3.jpg",
+            "price": 1257,
+            "popularity": 5,
+            "description": "University of Minnesota, Twin Cities Minneapolis, MN"
+        },
+        {
+
+            "name": "416 Lofts",
+            "image": "image-2.jpg",
+            "price": 460,
+            "popularity": 3,
+            "description": "University of Minnesota, Twin Cities Minneapolis, MN"
+        },
+        {
+
+            "name": "Edge on Oak",
+            "image": "image-4.jpg",
+            "price": 532,
+            "popularity": 7,
+            "description": "University of Minnesota, Twin Cities Minneapolis, MN"
+        },
+        {
+
+            "name": "604 E White",
+            "image": "image-5.jpg",
+            "price": 666,
+            "popularity": 6,
+            "description": "University of Minnesota, Twin Cities Minneapolis, MN"
+        },
+        {
+
+            "name": "467 5th Street",
+            "image": "image-6.jpg",
+            "price": 800,
+            "popularity": 9,
+            "description": "University of Minnesota, Twin Cities Minneapolis, MN"
+        },
+        {
+
+            "name": "Campus Center - Luxury",
+            "image": "image-7.jpg",
+            "price": 1000,
+            "popularity": 11,
+            "description": "University of Minnesota, Twin Cities Minneapolis, MN"
+        },
+        {
+
+            "name": "Studios ALL NEW",
+            "image": "image-8.jpg",
+            "price": 400,
+            "popularity": 1,
+            "description": "University of Minnesota, Twin Cities Minneapolis, MN"
+        },
+        {
+
+            "name": "One North",
+            "image": "image-9.jpg",
+            "price": 634,
+            "popularity": 7,
+            "description": "University of Minnesota, Twin Cities Minneapolis, MN"
+        },
+        {
+
+            "name": "308 N. Lincoln",
+            "image": "image-10.jpg",
+            "price": 999,
+            "popularity": 9,
+            "description": "University of Minnesota, Twin Cities Minneapolis, MN"
+        },
+        {
+
+            "name": "The Gardens",
+            "image": "image-11.jpg",
+            "price": 563,
+            "popularity": 8,
+            "description": "University of Minnesota, Twin Cities Minneapolis, MN"
+        },
+        {
+
+            "name": "The Pointe",
+            "image": "image-12.jpg",
+            "price": 775,
+            "popularity": 8,
+            "description": "University of Minnesota, Twin Cities Minneapolis, MN"
+        }
+    ]
+}

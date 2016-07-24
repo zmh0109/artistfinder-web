@@ -4,12 +4,12 @@ demoApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $ht
 	$httpProvider.defaults.headers.post = { 'Content-Type': 'application/x-www-form-urlencoded' };
 	$httpProvider.defaults.headers.put  = {'Content-Type': 'application/x-www-form-urlencoded'};
 	$routeProvider.
-	 when('/home', {
-	 templateUrl: 'partials/main.html',
-	 controller: 'MainController'
+	 when('/list', {
+	 templateUrl: 'partials/list.html',
+	 controller: 'ListCtrl'
 	}).
-	when('/artists/info/:id', {
-	 templateUrl: 'partials/artist.html',
+	when('/detail/:id', {
+	 templateUrl: 'partials/detail.html',
 	 controller: 'ArtistInfoController'
 	}).
 	when('/artists/edit/:id', {
@@ -57,7 +57,7 @@ demoApp.config(['$routeProvider', '$httpProvider', function ($routeProvider, $ht
 		controller: 'NotificationController'
 	}).
 	otherwise({
-	 redirectTo: '/home'
+	 redirectTo: '/list'
 	});
 }]);
 

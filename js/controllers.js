@@ -1,5 +1,16 @@
 var demoControllers = angular.module('demoControllers', ['720kb.datepicker']);
 
+demoControllers.controller('ListCtrl', ['$scope', '$http',
+    function ($scope, $http) {
+        alert("!");
+        $http.get('data/apartment.json').success(function(data) {
+
+            $scope.apartments = data;
+        });
+
+
+    }]);
+
 demoControllers.controller('MainController', ['$scope', '$rootScope', 'Artists', 'Users', '$window', function($scope, $rootScope, Artists, Users, $window) {
 	$scope.top = {};
 	$scope.artists = {};
